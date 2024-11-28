@@ -21,24 +21,28 @@ class Habit: Identifiable, Codable {
     var habitName: String
     var frequency: FrequencyAmount
     var description: String
-    var completedForTheDay: [Bool]
+    var completedForTheDay: Int
     var dateCreated: Date
     var totalCompleted: Int
     var totalMissed: Int
     var reminderIsOn: Bool 
     var lastCompleted: Date?
     
-    init(id: String? = nil, userId: String = (Auth.auth().currentUser?.uid ?? ""), habitName: String = "", frequency: FrequencyAmount = .one, description: String = "", dateCreated: Date = Date.now, totalCompleted: Int = 0, totalMissed: Int = 0, reminderIsOn: Bool = false, lastCompleted: Date? = nil) {
+    init(id: String? = nil, userId: String = (Auth.auth().currentUser?.uid ?? ""), habitName: String = "", frequency: FrequencyAmount = .one, description: String = "", completedForTheDay: Int = 0, dateCreated: Date = Date.now, totalCompleted: Int = 0, totalMissed: Int = 0, reminderIsOn: Bool = false, lastCompleted: Date? = nil) {
         self.userId = userId
         self.habitName = habitName
         self.frequency = frequency
         self.description = description
-        self.completedForTheDay = Array(repeating: false, count: frequency.rawValue)
+        self.completedForTheDay = completedForTheDay
         self.dateCreated = dateCreated
         self.totalCompleted = totalCompleted
         self.totalMissed = totalMissed
         self.reminderIsOn = reminderIsOn
         self.lastCompleted = lastCompleted
+    }
+    
+    func progressForTheDay() -> Double {
+        return Double(self.completedForTheDay) / Double(self.frequency.rawValue)
     }
     
 }

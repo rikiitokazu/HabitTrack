@@ -46,24 +46,22 @@ struct CreateHabitView: View {
                 }
             }
             
-            Toggle("Set Reminder:", isOn: $habit.reminderIsOn)
+            Toggle("Set Reminder\(frequency == .one ? "" : "s"):", isOn: $habit.reminderIsOn)
                 .padding(.top)
                 .listRowSeparator(.hidden)
             
-            DatePicker("Description:", selection:$habit.dateCreated)
-                .listRowSeparator(.hidden)
-                .padding(.bottom)
-                .disabled(!false)
+//            DatePicker("Description:", selection:$habit.dateCreated)
+//                .listRowSeparator(.hidden)
+//                .padding(.bottom)
+//                .disabled(!false)
             
-            Text("Notes:")
+            Text("Description:")
                 .padding(.top)
             
-            TextField("Notes", text: $habit.description, axis: .vertical)
+            
+            TextField("Add a description...", text: $habit.description, axis: .vertical)
                 .textFieldStyle(.roundedBorder)
                 .listRowSeparator(.hidden)
-            
-            
-            
         }
         .listStyle(.plain)
         .navigationBarBackButtonHidden(true)
