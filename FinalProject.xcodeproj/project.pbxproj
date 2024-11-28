@@ -10,6 +10,7 @@
 		3A823EFE2CF80B4600F441F3 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823EFD2CF80B4600F441F3 /* Habit.swift */; };
 		3A823F022CF80E5E00F441F3 /* CreateHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823F012CF80E5E00F441F3 /* CreateHabitView.swift */; };
 		3A823F172CF8312500F441F3 /* PersonalHabitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823F162CF8312500F441F3 /* PersonalHabitsView.swift */; };
+		3A823F192CF8328300F441F3 /* HabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823F182CF8328300F441F3 /* HabitViewModel.swift */; };
 		3A937FD42CF656C60025E539 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A937FCC2CF656C60025E539 /* Preview Assets.xcassets */; };
 		3A937FD52CF656C60025E539 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A937FD02CF656C60025E539 /* Assets.xcassets */; };
 		3A937FD62CF656C60025E539 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A937FD12CF656C60025E539 /* LoginView.swift */; };
@@ -24,6 +25,7 @@
 		3A823EFD2CF80B4600F441F3 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		3A823F012CF80E5E00F441F3 /* CreateHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitView.swift; sourceTree = "<group>"; };
 		3A823F162CF8312500F441F3 /* PersonalHabitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalHabitsView.swift; sourceTree = "<group>"; };
+		3A823F182CF8328300F441F3 /* HabitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewModel.swift; sourceTree = "<group>"; };
 		3A937FCC2CF656C60025E539 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3A937FD02CF656C60025E539 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A937FD12CF656C60025E539 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 		3A937FCE2CF656C60025E539 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				3A823F182CF8328300F441F3 /* HabitViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 				3A823EFE2CF80B4600F441F3 /* Habit.swift in Sources */,
 				3A937FD62CF656C60025E539 /* LoginView.swift in Sources */,
 				3A937FD72CF656C60025E539 /* FinalProjectApp.swift in Sources */,
+				3A823F192CF8328300F441F3 /* HabitViewModel.swift in Sources */,
 				3A823F172CF8312500F441F3 /* PersonalHabitsView.swift in Sources */,
 				3A823F022CF80E5E00F441F3 /* CreateHabitView.swift in Sources */,
 			);
