@@ -10,12 +10,17 @@ import SwiftData
 import FirebaseFirestore
 import FirebaseAuth
 
+
+enum FrequencyType: String, Encodable, Decodable, CaseIterable {
+    case daily, weekly
+}
+
 class Habit: Identifiable, Codable {
     @DocumentID var id: String?
     var userId: String?
-    var habit: String = ""
+    var habitName: String = ""
     var frequency: Int = 0
-    var frequencyType: String = ""
+    var frequencyType: FrequencyType = .daily
     var notes: String = ""
     var isCompleted: Bool = false
     var dateCreated: Date = Date.now
@@ -24,10 +29,11 @@ class Habit: Identifiable, Codable {
     var lastCompleted: Date?
     var specificDays: [Date] = []
     var specificTimes: [Int] = []
+    var nextTime: Date?
     var reminderIsOn: Bool = false
     
-    init(id: String? = nil, userId: String = (Auth.auth().currentUser?.uid ?? ""), habit: String = "", frequency: Int = 0, frequencyType: String = "", notes: String = "", isCompleted: Bool = false, dateCreated: Date = Date.now, completed: Int = 0, missed: Int = 0, lastCompleted: Date? = nil, specificDays: [Date] = [], specificTimes: [Int] = [], reminderIsOn: Bool = false) {
-        self.habit = habit
+    init(id: String? = nil, userId: String = (Auth.auth().currentUser?.uid ?? ""), habitName: String = "", frequency: Int = 0, frequencyType: FrequencyType = .daily, notes: String = "", isCompleted: Bool = false, dateCreated: Date = Date.now, completed: Int = 0, missed: Int = 0, lastCompleted: Date? = nil, specificDays: [Date] = [], specificTimes: [Int] = [], nextTime: Date? = nil, reminderIsOn: Bool = false) {
+        self.habitName = habitName
         self.frequency = frequency
         self.frequencyType = frequencyType
         self.notes = notes
@@ -38,6 +44,7 @@ class Habit: Identifiable, Codable {
         self.lastCompleted = lastCompleted
         self.specificDays = specificDays
         self.specificTimes = specificTimes
+        self.nextTime = nextTime
         self.reminderIsOn = reminderIsOn
     }
     
