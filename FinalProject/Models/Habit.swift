@@ -7,9 +7,12 @@
 
 import Foundation
 import SwiftData
+import FirebaseFirestore
+import FirebaseAuth
 
-@Model
-class Habit {
+class Habit: Identifiable, Codable {
+    @DocumentID var id: String?
+    var userId: String?
     var habit: String = ""
     var frequency: Int = 0
     var frequencyType: String = ""
@@ -23,7 +26,7 @@ class Habit {
     var specificTimes: [Int] = []
     var reminderIsOn: Bool = false
     
-    init(habit: String = "", frequency: Int = 0, frequencyType: String = "", notes: String = "", isCompleted: Bool = false, dateCreated: Date = Date.now, completed: Int = 0, missed: Int = 0, lastCompleted: Date? = nil, specificDays: [Date] = [], specificTimes: [Int] = [], reminderIsOn: Bool = false) {
+    init(id: String? = nil, userId: String = (Auth.auth().currentUser?.uid ?? ""), habit: String = "", frequency: Int = 0, frequencyType: String = "", notes: String = "", isCompleted: Bool = false, dateCreated: Date = Date.now, completed: Int = 0, missed: Int = 0, lastCompleted: Date? = nil, specificDays: [Date] = [], specificTimes: [Int] = [], reminderIsOn: Bool = false) {
         self.habit = habit
         self.frequency = frequency
         self.frequencyType = frequencyType
