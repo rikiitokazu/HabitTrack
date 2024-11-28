@@ -80,7 +80,7 @@ struct LoginView: View {
             
         }
         .padding()
-        .background(Color.purple.opacity(0.3))
+        .background(.black600)
         .alert(alertMessage, isPresented: $showingAlert) {
             Button ("OK", role:.cancel) {}
         }

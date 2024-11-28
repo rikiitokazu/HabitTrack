@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A823EFE2CF80B4600F441F3 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823EFD2CF80B4600F441F3 /* Habit.swift */; };
 		3A937FD42CF656C60025E539 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A937FCC2CF656C60025E539 /* Preview Assets.xcassets */; };
 		3A937FD52CF656C60025E539 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A937FD02CF656C60025E539 /* Assets.xcassets */; };
 		3A937FD62CF656C60025E539 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A937FD12CF656C60025E539 /* LoginView.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A823EFD2CF80B4600F441F3 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		3A937FCC2CF656C60025E539 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3A937FD02CF656C60025E539 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A937FD12CF656C60025E539 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -43,6 +45,7 @@
 		3A937FCB2CF656C60025E539 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3A823EFD2CF80B4600F441F3 /* Habit.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A823EFE2CF80B4600F441F3 /* Habit.swift in Sources */,
 				3A937FD62CF656C60025E539 /* LoginView.swift in Sources */,
 				3A937FD72CF656C60025E539 /* FinalProjectApp.swift in Sources */,
 			);
