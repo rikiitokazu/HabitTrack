@@ -10,43 +10,35 @@ import SwiftData
 import FirebaseFirestore
 import FirebaseAuth
 
-
-enum FrequencyType: String, Encodable, Decodable, CaseIterable {
-    case daily, weekly
+// TODO: What does the encodable and decodable do?
+enum FrequencyAmount: String, Encodable, Decodable, CaseIterable {
+    case one, two, three, four, five
 }
 
 class Habit: Identifiable, Codable {
     @DocumentID var id: String?
     var userId: String
-    var habitName: String = ""
-    var frequency: Int = 0
-    var frequencyType: FrequencyType = .daily
-    var notes: String = ""
-    var isCompleted: Bool = false
-    var dateCreated: Date = Date.now
-    var completed: Int = 0
-    var missed: Int = 0
+    var habitName: String
+    var frequency: FrequencyAmount
+    var description: String
+    var completedForTheDay: [Bool]
+    var dateCreated: Date
+    var totalCompleted: Int
+    var totalMissed: Int
+    var reminderIsOn: Bool 
     var lastCompleted: Date?
-    var specificDays: [Date] = []
-    var specificTimes: [Int] = []
-    var nextTime: Date?
-    var reminderIsOn: Bool = false
     
-    init(id: String? = nil, userId: String = (Auth.auth().currentUser?.uid ?? ""), habitName: String = "", frequency: Int = 0, frequencyType: FrequencyType = .daily, notes: String = "", isCompleted: Bool = false, dateCreated: Date = Date.now, completed: Int = 0, missed: Int = 0, lastCompleted: Date? = nil, specificDays: [Date] = [], specificTimes: [Int] = [], nextTime: Date? = nil, reminderIsOn: Bool = false) {
+    init(id: String? = nil, userId: String = (Auth.auth().currentUser?.uid ?? ""), habitName: String = "", frequency: FrequencyAmount = .one, description: String = "", dateCreated: Date = Date.now, totalCompleted: Int = 0, totalMissed: Int = 0, reminderIsOn: Bool = false, lastCompleted: Date? = nil) {
         self.userId = userId
         self.habitName = habitName
         self.frequency = frequency
-        self.frequencyType = frequencyType
-        self.notes = notes
-        self.isCompleted = isCompleted
+        self.description = description
+        self.completedForTheDay = Array(repeating: false, count: 4)
         self.dateCreated = dateCreated
-        self.completed = completed
-        self.missed = missed
-        self.lastCompleted = lastCompleted
-        self.specificDays = specificDays
-        self.specificTimes = specificTimes
-        self.nextTime = nextTime
+        self.totalCompleted = totalCompleted
+        self.totalMissed = totalMissed
         self.reminderIsOn = reminderIsOn
+        self.lastCompleted = lastCompleted
     }
     
 }
