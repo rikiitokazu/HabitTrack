@@ -78,6 +78,11 @@ struct CreateHabitView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Save") {
                     // save data
+                    if Auth.auth().currentUser == nil {
+                        print("-----Not logged in")
+                        return
+                    }
+                    saveHabit()
                     dismiss()
                 }
             }
@@ -86,15 +91,14 @@ struct CreateHabitView: View {
     }
     
     func saveHabit() {
-//        Task {
-//            guard let id = await SpotViewModel.saveSpot(spot:spot) else {
-//                print("error: failed to save spot")
-//                return
-//            }
-//            print("\(id)")
-//            
-//        }
-        print("insert save")
+        Task {
+            guard let id = await HabitViewModel.saveHabit(habit: habit) else {
+                print("error: failed to save habit")
+                return
+            }
+            print("\(id)")
+            
+        }
     }
 }
 

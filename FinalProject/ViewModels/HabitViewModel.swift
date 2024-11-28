@@ -12,7 +12,7 @@ import FirebaseFirestore
 @Observable
 class HabitViewModel {
     
-    static func saveSpot(habit: Habit) async -> String? {
+    static func saveHabit(habit: Habit) async -> String? {
         let db = Firestore.firestore()
         
         if let id = habit.id {
@@ -37,7 +37,7 @@ class HabitViewModel {
         }
     }
     
-    static func deleteSpot(habit: Habit) {
+    static func deleteHabit(habit: Habit) {
         let db = Firestore.firestore()
         guard let id = habit.id else {
             print("No habit.id")
