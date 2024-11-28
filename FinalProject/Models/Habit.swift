@@ -17,7 +17,7 @@ enum FrequencyType: String, Encodable, Decodable, CaseIterable {
 
 class Habit: Identifiable, Codable {
     @DocumentID var id: String?
-    var userId: String?
+    var userId: String
     var habitName: String = ""
     var frequency: Int = 0
     var frequencyType: FrequencyType = .daily
@@ -33,6 +33,7 @@ class Habit: Identifiable, Codable {
     var reminderIsOn: Bool = false
     
     init(id: String? = nil, userId: String = (Auth.auth().currentUser?.uid ?? ""), habitName: String = "", frequency: Int = 0, frequencyType: FrequencyType = .daily, notes: String = "", isCompleted: Bool = false, dateCreated: Date = Date.now, completed: Int = 0, missed: Int = 0, lastCompleted: Date? = nil, specificDays: [Date] = [], specificTimes: [Int] = [], nextTime: Date? = nil, reminderIsOn: Bool = false) {
+        self.userId = userId
         self.habitName = habitName
         self.frequency = frequency
         self.frequencyType = frequencyType
