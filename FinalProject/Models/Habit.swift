@@ -11,8 +11,8 @@ import FirebaseFirestore
 import FirebaseAuth
 
 // TODO: What does the encodable and decodable do?
-enum FrequencyAmount: String, Encodable, Decodable, CaseIterable {
-    case one, two, three, four, five
+enum FrequencyAmount: Int, Encodable, Decodable, CaseIterable {
+    case one = 1, two, three, four, five
 }
 
 class Habit: Identifiable, Codable {
@@ -33,7 +33,7 @@ class Habit: Identifiable, Codable {
         self.habitName = habitName
         self.frequency = frequency
         self.description = description
-        self.completedForTheDay = Array(repeating: false, count: 4)
+        self.completedForTheDay = Array(repeating: false, count: frequency.rawValue)
         self.dateCreated = dateCreated
         self.totalCompleted = totalCompleted
         self.totalMissed = totalMissed

@@ -12,7 +12,6 @@ import FirebaseAuth
 
 
 struct CreateHabitView: View {
-    
     @State var habit: Habit
     //    @State private var habitName = ""
     //    @State private var frequency = 0
@@ -30,6 +29,7 @@ struct CreateHabitView: View {
     
     //    @State private var dueDate = Date.now + 60*60*24
     @State private var dueDate = Calendar.current.date(byAdding: .day, value: 1, to: Date.now)!
+    @State private var frequency: FrequencyAmount = .one
     
     @Environment(\.dismiss) private var dismiss
     var body: some View {
@@ -40,7 +40,7 @@ struct CreateHabitView: View {
                 .padding(.vertical)
                 .listRowSeparator(.hidden)
             
-            Picker("Frequency (per day)", selection: $habit.frequency) {
+            Picker("Frequency (per day)", selection: $frequency) {
                 ForEach(FrequencyAmount.allCases, id: \.self) { num in
                     Text("\(num.rawValue)")
                 }
@@ -76,6 +76,7 @@ struct CreateHabitView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Save") {
                     // save data
+                    habit.frequency = frequency
                     if Auth.auth().currentUser == nil {
                         print("-----Not logged in")
                         return
@@ -84,6 +85,11 @@ struct CreateHabitView: View {
                     dismiss()
                 }
             }
+        }
+        .onAppear() {
+            // temporary workaround because enum not working
+            frequency = habit.frequency
+            
         }
         
     }
