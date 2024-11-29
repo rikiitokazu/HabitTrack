@@ -68,6 +68,8 @@ struct LoginView: View {
                 
                 Button("Log In") {
                     login()
+                    // TODO: check last login. if current date is not equal to date of last login, reset counters and
+                    // calculate all the missed habits
                 }
                 .padding(.leading)
             }

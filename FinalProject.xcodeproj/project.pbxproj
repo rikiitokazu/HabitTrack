@@ -12,6 +12,7 @@
 		3A823F172CF8312500F441F3 /* PersonalHabitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823F162CF8312500F441F3 /* PersonalHabitsView.swift */; };
 		3A823F192CF8328300F441F3 /* HabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823F182CF8328300F441F3 /* HabitViewModel.swift */; };
 		3A823F1D2CF8F23600F441F3 /* ToDoHabitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823F1C2CF8F23600F441F3 /* ToDoHabitsView.swift */; };
+		3A823F352CF92A0800F441F3 /* RefreshUserHabits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823F342CF92A0800F441F3 /* RefreshUserHabits.swift */; };
 		3A937FD42CF656C60025E539 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A937FCC2CF656C60025E539 /* Preview Assets.xcassets */; };
 		3A937FD52CF656C60025E539 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A937FD02CF656C60025E539 /* Assets.xcassets */; };
 		3A937FD62CF656C60025E539 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A937FD12CF656C60025E539 /* LoginView.swift */; };
@@ -28,6 +29,7 @@
 		3A823F162CF8312500F441F3 /* PersonalHabitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalHabitsView.swift; sourceTree = "<group>"; };
 		3A823F182CF8328300F441F3 /* HabitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewModel.swift; sourceTree = "<group>"; };
 		3A823F1C2CF8F23600F441F3 /* ToDoHabitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoHabitsView.swift; sourceTree = "<group>"; };
+		3A823F342CF92A0800F441F3 /* RefreshUserHabits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshUserHabits.swift; sourceTree = "<group>"; };
 		3A937FCC2CF656C60025E539 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3A937FD02CF656C60025E539 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A937FD12CF656C60025E539 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -50,6 +52,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A823F312CF928AF00F441F3 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3A823F342CF92A0800F441F3 /* RefreshUserHabits.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		3A937FCB2CF656C60025E539 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +101,7 @@
 				3A937FCB2CF656C60025E539 /* Models */,
 				3A937FCE2CF656C60025E539 /* ViewModels */,
 				3A937FCF2CF656C60025E539 /* Views */,
+				3A823F312CF928AF00F441F3 /* Helpers */,
 				3A937FCD2CF656C60025E539 /* Preview Content */,
 				3A937FD02CF656C60025E539 /* Assets.xcassets */,
 				3A937FD22CF656C60025E539 /* FinalProjectApp.swift */,
@@ -198,6 +209,7 @@
 				3A823EFE2CF80B4600F441F3 /* Habit.swift in Sources */,
 				3A937FD62CF656C60025E539 /* LoginView.swift in Sources */,
 				3A937FD72CF656C60025E539 /* FinalProjectApp.swift in Sources */,
+				3A823F352CF92A0800F441F3 /* RefreshUserHabits.swift in Sources */,
 				3A823F1D2CF8F23600F441F3 /* ToDoHabitsView.swift in Sources */,
 				3A823F192CF8328300F441F3 /* HabitViewModel.swift in Sources */,
 				3A823F172CF8312500F441F3 /* PersonalHabitsView.swift in Sources */,

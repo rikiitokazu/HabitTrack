@@ -44,5 +44,4 @@ class Habit: Identifiable, Codable {
     func progressForTheDay() -> Double {
         return Double(self.completedForTheDay) / Double(self.frequency.rawValue)
     }
-    
 }

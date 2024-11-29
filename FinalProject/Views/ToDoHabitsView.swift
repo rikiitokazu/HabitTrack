@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-import SwiftUI
 import Firebase
 import FirebaseAuth
 import FirebaseFirestore
@@ -23,17 +21,15 @@ struct ToDoHabitsView: View {
         NavigationStack {
             List(getIncompleteHabits()) { habit in
                 NavigationLink {
-                    // Camera View
+                    // Opens Camera View
                     
                 } label: {
-                    HStack {
-                        Text(habit.habitName)
-                        Text("\(habit.completedForTheDay)/\(habit.frequency.rawValue)")
-                    }
-                }
-                .swipeActions {
-                    Button("Delete", role: .destructive) {
-                        HabitViewModel.deleteHabit(habit: habit)
+                    VStack {
+                        HStack {
+                            Text(habit.habitName)
+                            Text("\(habit.completedForTheDay)/\(habit.frequency.rawValue)")
+                        }
+                        Image(systemName: getCorrectIcon())
                     }
                 }
                 // test buttons
@@ -68,6 +64,22 @@ struct ToDoHabitsView: View {
         let completedHabits = habits.filter { $0.completedForTheDay == $0.frequency.rawValue }
         
         return completedHabits
+    }
+    
+    func getCorrectIcon() -> String {
+        let time = Date.now
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: time)
+        let minute = calendar.component(.minute, from: time)
+        
+        switch (hour, minute) {
+        case (18...20, _):
+            return "triangle"
+        case (21, 0...59), (22...23, _):
+            return "exclamationmark.circle"
+        default:
+            return "camera.fill"
+        }
     }
     
     func markAsDone(habit: Habit) {
