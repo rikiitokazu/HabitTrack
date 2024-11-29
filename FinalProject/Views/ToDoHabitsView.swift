@@ -24,12 +24,21 @@ struct ToDoHabitsView: View {
                     // Opens Camera View
                     
                 } label: {
-                    VStack {
-                        HStack {
+                    VStack (alignment: .leading){
+                        HStack (alignment: .center){
+                            Image(systemName: getCorrectIcon())
+                                .foregroundStyle(Color(getCorrectIconColor()))
+                            
                             Text(habit.habitName)
+                            Spacer()
                             Text("\(habit.completedForTheDay)/\(habit.frequency.rawValue)")
                         }
-                        Image(systemName: getCorrectIcon())
+                        HStack (alignment: .center) {
+                            Spacer()
+                            Text("Last completed: 11/3/4 : 4:00pm")
+                                .font(.caption)
+                        }
+                        
                     }
                 }
                 // test buttons
@@ -55,7 +64,7 @@ struct ToDoHabitsView: View {
         // Separate into completed (for the day) and not completed
         // for the not completed, sort where completedForTheDay in ascending order
         let sortedHabits = habits.sorted { $0.progressForTheDay() < $1.progressForTheDay() }
-      
+        
         let incompleteHabits = sortedHabits.filter { $0.completedForTheDay < $0.frequency.rawValue }
         return incompleteHabits
     }
@@ -74,12 +83,28 @@ struct ToDoHabitsView: View {
         
         switch (hour, minute) {
         case (18...20, _):
-            return "triangle"
+            return "triangle.fill"
         case (21, 0...59), (22...23, _):
             return "exclamationmark.circle"
         default:
             return "camera.fill"
         }
+    }
+    func getCorrectIconColor() -> UIColor {
+        let time = Date.now
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: time)
+        let minute = calendar.component(.minute, from: time)
+        
+        switch (hour, minute) {
+        case (18...20, _):
+            return .yellow
+        case (21, 0...59), (22...23, _):
+            return  .red
+        default:
+            return .blue300
+        }
+
     }
     
     func markAsDone(habit: Habit) {
