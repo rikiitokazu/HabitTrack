@@ -13,6 +13,7 @@
 		3A823F192CF8328300F441F3 /* HabitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823F182CF8328300F441F3 /* HabitViewModel.swift */; };
 		3A823F1D2CF8F23600F441F3 /* ToDoHabitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823F1C2CF8F23600F441F3 /* ToDoHabitsView.swift */; };
 		3A823F352CF92A0800F441F3 /* RefreshUserHabits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823F342CF92A0800F441F3 /* RefreshUserHabits.swift */; };
+		3A823F372CF9502300F441F3 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823F362CF9502300F441F3 /* CameraView.swift */; };
 		3A937FD42CF656C60025E539 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A937FCC2CF656C60025E539 /* Preview Assets.xcassets */; };
 		3A937FD52CF656C60025E539 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A937FD02CF656C60025E539 /* Assets.xcassets */; };
 		3A937FD62CF656C60025E539 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A937FD12CF656C60025E539 /* LoginView.swift */; };
@@ -21,6 +22,8 @@
 		3A937FDC2CF65D000025E539 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 3A937FDB2CF65D000025E539 /* FirebaseFirestore */; };
 		3A937FDE2CF65D000025E539 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 3A937FDD2CF65D000025E539 /* FirebaseStorage */; };
 		3A937FE42CF65EA00025E539 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A937FE32CF65EA00025E539 /* GoogleService-Info.plist */; };
+		3AA98CA32CF995AD00B3A411 /* CameraPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA98CA22CF995AD00B3A411 /* CameraPermission.swift */; };
+		3AA98CA52CF997AA00B3A411 /* UIKitCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA98CA42CF997AA00B3A411 /* UIKitCamera.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,11 +33,14 @@
 		3A823F182CF8328300F441F3 /* HabitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewModel.swift; sourceTree = "<group>"; };
 		3A823F1C2CF8F23600F441F3 /* ToDoHabitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoHabitsView.swift; sourceTree = "<group>"; };
 		3A823F342CF92A0800F441F3 /* RefreshUserHabits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshUserHabits.swift; sourceTree = "<group>"; };
+		3A823F362CF9502300F441F3 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		3A937FCC2CF656C60025E539 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3A937FD02CF656C60025E539 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3A937FD12CF656C60025E539 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		3A937FD22CF656C60025E539 /* FinalProjectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalProjectApp.swift; sourceTree = "<group>"; };
 		3A937FE32CF65EA00025E539 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3AA98CA22CF995AD00B3A411 /* CameraPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermission.swift; sourceTree = "<group>"; };
+		3AA98CA42CF997AA00B3A411 /* UIKitCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitCamera.swift; sourceTree = "<group>"; };
 		3ADAE8092CED8F9800407DA8 /* FinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -56,6 +62,8 @@
 			isa = PBXGroup;
 			children = (
 				3A823F342CF92A0800F441F3 /* RefreshUserHabits.swift */,
+				3AA98CA22CF995AD00B3A411 /* CameraPermission.swift */,
+				3AA98CA42CF997AA00B3A411 /* UIKitCamera.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -90,6 +98,7 @@
 				3A823F012CF80E5E00F441F3 /* CreateHabitView.swift */,
 				3A823F162CF8312500F441F3 /* PersonalHabitsView.swift */,
 				3A823F1C2CF8F23600F441F3 /* ToDoHabitsView.swift */,
+				3A823F362CF9502300F441F3 /* CameraView.swift */,
 				3A937FD12CF656C60025E539 /* LoginView.swift */,
 			);
 			path = Views;
@@ -207,11 +216,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A823EFE2CF80B4600F441F3 /* Habit.swift in Sources */,
+				3AA98CA52CF997AA00B3A411 /* UIKitCamera.swift in Sources */,
 				3A937FD62CF656C60025E539 /* LoginView.swift in Sources */,
 				3A937FD72CF656C60025E539 /* FinalProjectApp.swift in Sources */,
+				3A823F372CF9502300F441F3 /* CameraView.swift in Sources */,
 				3A823F352CF92A0800F441F3 /* RefreshUserHabits.swift in Sources */,
 				3A823F1D2CF8F23600F441F3 /* ToDoHabitsView.swift in Sources */,
 				3A823F192CF8328300F441F3 /* HabitViewModel.swift in Sources */,
+				3AA98CA32CF995AD00B3A411 /* CameraPermission.swift in Sources */,
 				3A823F172CF8312500F441F3 /* PersonalHabitsView.swift in Sources */,
 				3A823F022CF80E5E00F441F3 /* CreateHabitView.swift in Sources */,
 			);
@@ -350,6 +362,7 @@
 				DEVELOPMENT_TEAM = 4Y44C7HXS2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Takes pictures for documentation";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -379,6 +392,7 @@
 				DEVELOPMENT_TEAM = 4Y44C7HXS2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Takes pictures for documentation";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
