@@ -25,8 +25,8 @@ struct CameraViewBack: View {
                     .ignoresSafeArea()
                 
                 CountdownView(variation: .back, countdownFinished: $countdownFinished, VM: $VM)
-                horizontalControlBar
-                    .frame(height: controlFrameHeight)
+//                horizontalControlBar
+//                    .frame(height: controlFrameHeight)
             }
             .onAppear() {
                 print("on appear triggered")
@@ -39,8 +39,8 @@ struct CameraViewBack: View {
                         print("photo has not finished uploading")
                         return
                     }
-                    backPhoto = VM.photoData
                     showCamera = false
+                    backPhoto = VM.photoData
                 }
             }
         }

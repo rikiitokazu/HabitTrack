@@ -25,8 +25,8 @@ struct CameraViewFront: View {
                 Color.black
                     .ignoresSafeArea()
                 CountdownView(variation: .front, countdownFinished: $countdownFinished, VM: $VM)
-                horizontalControlBar
-                    .frame(height: controlFrameHeight)
+//                horizontalControlBar
+//                    .frame(height: controlFrameHeight)
             }
             .fullScreenBackCamera(isPresented: $showBackView, cameraDisplay: $cameraDisplay, backPhoto: $backPhoto, showCamera: $showCamera)
             
@@ -42,8 +42,8 @@ struct CameraViewFront: View {
                         print("photo has not finished uploading")
                         return
                     }
-                    frontPhoto = VM.photoData
                     showBackView = true
+                    frontPhoto = VM.photoData
                 }
             }
         }

@@ -26,7 +26,6 @@
 		3A937FE42CF65EA00025E539 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A937FE32CF65EA00025E539 /* GoogleService-Info.plist */; };
 		3AA98CA32CF995AD00B3A411 /* CameraPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA98CA22CF995AD00B3A411 /* CameraPermission.swift */; };
 		3AA98CAB2CFA57BD00B3A411 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA98CAA2CFA57BD00B3A411 /* TestView.swift */; };
-		3AA98CB02CFA5BC400B3A411 /* ControlButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA98CAF2CFA5BC400B3A411 /* ControlButtonView.swift */; };
 		3AA98CB62CFA635C00B3A411 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA98CB52CFA635C00B3A411 /* CameraViewModel.swift */; };
 		3AA98CB82CFA652400B3A411 /* CameraPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA98CB72CFA652400B3A411 /* CameraPreview.swift */; };
 /* End PBXBuildFile section */
@@ -48,7 +47,6 @@
 		3A937FE32CF65EA00025E539 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3AA98CA22CF995AD00B3A411 /* CameraPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermission.swift; sourceTree = "<group>"; };
 		3AA98CAA2CFA57BD00B3A411 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
-		3AA98CAF2CFA5BC400B3A411 /* ControlButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlButtonView.swift; sourceTree = "<group>"; };
 		3AA98CB52CFA635C00B3A411 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
 		3AA98CB72CFA652400B3A411 /* CameraPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreview.swift; sourceTree = "<group>"; };
 		3ADAE8092CED8F9800407DA8 /* FinalProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +94,7 @@
 		3A937FCE2CF656C60025E539 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				3AA98CB52CFA635C00B3A411 /* CameraViewModel.swift */,
 				3A823F182CF8328300F441F3 /* HabitViewModel.swift */,
 			);
 			path = ViewModels;
@@ -104,7 +103,6 @@
 		3A937FCF2CF656C60025E539 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3AA98CAC2CFA5A9500B3A411 /* Extensions */,
 				3A823F012CF80E5E00F441F3 /* CreateHabitView.swift */,
 				3A823F162CF8312500F441F3 /* PersonalHabitsView.swift */,
 				3A823F1C2CF8F23600F441F3 /* ToDoHabitsView.swift */,
@@ -131,15 +129,6 @@
 				3A937FE32CF65EA00025E539 /* GoogleService-Info.plist */,
 			);
 			path = FinalProject;
-			sourceTree = "<group>";
-		};
-		3AA98CAC2CFA5A9500B3A411 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				3AA98CAF2CFA5BC400B3A411 /* ControlButtonView.swift */,
-				3AA98CB52CFA635C00B3A411 /* CameraViewModel.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		3ADAE8002CED8F9700407DA8 = {
@@ -244,7 +233,6 @@
 				3A937FD62CF656C60025E539 /* LoginView.swift in Sources */,
 				3A8055112CFADAD000E88821 /* CameraViewBack.swift in Sources */,
 				3A937FD72CF656C60025E539 /* FinalProjectApp.swift in Sources */,
-				3AA98CB02CFA5BC400B3A411 /* ControlButtonView.swift in Sources */,
 				3A8054EF2CFA908700E88821 /* CountdownView.swift in Sources */,
 				3A823F372CF9502300F441F3 /* CameraViewFront.swift in Sources */,
 				3A823F352CF92A0800F441F3 /* RefreshUserHabits.swift in Sources */,
