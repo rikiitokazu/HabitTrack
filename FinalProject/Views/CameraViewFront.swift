@@ -1,5 +1,5 @@
 //
-//  CameraView.swift
+//  CameraViewFront.swift
 //  FinalProject
 //
 //  Created by Riki Itokazu on 11/28/24.
@@ -8,50 +8,56 @@
 import SwiftUI
 import AVFoundation
 
-struct CameraView: View {
-    @Binding var imageData: Data?
-    @Binding var imageData2: Data?
+struct CameraViewFront: View {
+    @Binding var frontPhoto: Data?
+    @Binding var backPhoto: Data?
     @Binding var showCamera: Bool
     @Binding var cameraDisplay: AVCaptureDevice.Position
+    
+    @State private var countdownFinished: Bool = false
     @State private var VM = CameraViewModel()
-    @State private var isActive = false
+    @State private var showBackView = false
     let controlButtonWidth: CGFloat = 120
     let controlFrameHeight: CGFloat = 90
     var body: some View {
         Group {
-            
             ZStack {
                 Color.black
                     .ignoresSafeArea()
-                VStack {
-                    cameraDisplay == .front ? Color.yellow : Color.blue
-                    //               cameraPreview
-                    // if we don't want allow retakes, just do usePhoto() after we take the pic
-                    
-                    horizontalControlBar
-                        .frame(height: controlFrameHeight)
-                }
+                CountdownView(variation: .front, countdownFinished: $countdownFinished, VM: $VM)
+                horizontalControlBar
+                    .frame(height: controlFrameHeight)
             }
+            .fullScreenBackCamera(isPresented: $showBackView, cameraDisplay: $cameraDisplay, backPhoto: $backPhoto, showCamera: $showCamera)
+            
             .onAppear() {
-                VM.requestAcccessAndSetup(position: cameraDisplay == .back ? .back : .front)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    withAnimation {
-                        VM.takePhoto()
+                print("on appear triggered")
+                VM.requestAcccessAndSetup(position: .front)
+            }
+            .onChange(of: countdownFinished) {
+                // TODO: wait until the photoData has loaded. if its not, maybe
+                // just do a ProgressView()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    if VM.photoData == nil {
+                        print("photo has not finished uploading")
+                        return
                     }
+                    frontPhoto = VM.photoData
+                    showBackView = true
                 }
             }
         }
     }
     
-    private var cameraPreview: some View {
-        GeometryReader { geo in
-            CameraPreview(cameraVM: $VM, frame: geo.frame(in: .global))
-                .onAppear() {
-                    VM.requestAcccessAndSetup(position: cameraDisplay == .back ? .back : .front)
-                }
-        }
-        .ignoresSafeArea()
-    }
+    //    private var cameraPreview: some View {
+    //        GeometryReader { geo in
+    //            CameraPreview(cameraVM: $VM, frame: geo.frame(in: .global))
+    //                .onAppear() {
+    //                    VM.requestAcccessAndSetup(position: cameraDisplay == .back ? .back : .front)
+    //                }
+    //        }
+    //        .ignoresSafeArea()
+    //    }
     
     @ViewBuilder private var horizontalControlBar: some View {
         if VM.hasPhoto {
@@ -63,11 +69,11 @@ struct CameraView: View {
     
     private var horizontalControlBarPrePhoto: some View {
         HStack {
-             cancelButton
+            cancelButton
                 .frame(width: controlButtonWidth)
-             Spacer()
-             photoCaptureButton
-             Spacer()
+            Spacer()
+            photoCaptureButton
+            Spacer()
             Spacer()
                 .frame(width: controlButtonWidth)
         }
@@ -85,11 +91,7 @@ struct CameraView: View {
     
     private var usePhotoButton: some View {
         ControlButtonView(label: "Use Photo") {
-            if cameraDisplay == .front {
-                imageData = VM.photoData
-            } else {
-                imageData2 = VM.photoData
-            }
+            frontPhoto = VM.photoData
             showCamera = false
         }
     }
@@ -128,6 +130,15 @@ struct CameraView: View {
     }
 }
 
+extension View {    
+    func fullScreenBackCamera(isPresented: Binding<Bool>, cameraDisplay: Binding<AVCaptureDevice.Position>, backPhoto: Binding<Data?>, showCamera: Binding<Bool>) -> some View {
+        self.fullScreenCover(isPresented: isPresented, content: {
+            CameraViewBack(backPhoto: backPhoto, showCamera: showCamera, cameraDisplay: cameraDisplay)
+
+        })
+    }
+}
+
 #Preview {
-    CameraView(imageData: .constant(nil), imageData2: .constant(nil), showCamera: .constant(true), cameraDisplay: .constant(.front))
+    CameraViewFront(frontPhoto: .constant(nil), backPhoto: .constant(nil), showCamera: .constant(true), cameraDisplay: .constant(.front))
 }

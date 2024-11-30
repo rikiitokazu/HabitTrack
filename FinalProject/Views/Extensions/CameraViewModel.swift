@@ -82,6 +82,7 @@ class CameraViewModel: NSObject {
     func takePhoto() {
         guard case .notStarted = photoCaptureState else { return }
         output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+        
         withAnimation {
             self.photoCaptureState = .processing
         }
@@ -111,6 +112,7 @@ extension CameraViewModel: AVCapturePhotoCaptureDelegate {
             await MainActor.run {
                 withAnimation {
                     self.photoCaptureState = .finished(imageData)
+                    
                 }
             }
         }
