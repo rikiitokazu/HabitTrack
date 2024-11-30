@@ -9,18 +9,35 @@ import SwiftUI
 
 struct CameraView: View {
     @Binding var imageData: Data?
+    @Binding var imageData2: Data?
     @Binding var showCamera: Bool
+    @Binding var cameraDisplay: Bool 
     @State private var VM = CameraViewModel()
+    @State private var isActive = false
     let controlButtonWidth: CGFloat = 120
     let controlFrameHeight: CGFloat = 90
     var body: some View {
-        ZStack {
-            Color.black
-                .ignoresSafeArea()
-            VStack {
-               cameraPreview
-               horizontalControlBar
-                    .frame(height: controlFrameHeight)
+        Group {
+            
+            ZStack {
+                Color.black
+                    .ignoresSafeArea()
+                VStack {
+                    cameraDisplay ? Color.yellow : Color.blue
+                    //               cameraPreview
+                    // if we don't want allow retakes, just do usePhoto() after we take the pic
+                    
+                    horizontalControlBar
+                        .frame(height: controlFrameHeight)
+                }
+            }
+            .onAppear() {
+                VM.requestAcccessAndSetup(position: cameraDisplay ? .back : .front)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    withAnimation {
+                        VM.takePhoto()
+                    }
+                }
             }
         }
     }
@@ -29,7 +46,7 @@ struct CameraView: View {
         GeometryReader { geo in
             CameraPreview(cameraVM: $VM, frame: geo.frame(in: .global))
                 .onAppear() {
-                    VM.requestAcccessAndSetup()
+                    VM.requestAcccessAndSetup(position: cameraDisplay ? .back : .front)
                 }
         }
         .ignoresSafeArea()
@@ -67,14 +84,24 @@ struct CameraView: View {
     
     private var usePhotoButton: some View {
         ControlButtonView(label: "Use Photo") {
-            imageData = VM.photoData
+            if cameraDisplay {
+                imageData = VM.photoData
+            } else {
+                imageData2 = VM.photoData
+            }
             showCamera = false
         }
     }
     
     private var retakeButton: some View {
-        ControlButtonView(label: "Cancel") {
+        ControlButtonView(label: "Retake") {
             VM.retakePhoto()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                withAnimation {
+                    VM.takePhoto()
+                    // boolean to show 1 or 2 view
+                }
+            }
         }
     }
     
@@ -101,5 +128,5 @@ struct CameraView: View {
 }
 
 #Preview {
-    CameraView(imageData: .constant(nil), showCamera: .constant(true))
+    CameraView(imageData: .constant(nil), imageData2: .constant(nil), showCamera: .constant(true), cameraDisplay: .constant(false))
 }

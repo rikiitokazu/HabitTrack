@@ -9,6 +9,10 @@ import SwiftUI
 import AVFoundation
 
 struct CameraPreview: UIViewRepresentable {
+    func updateUIView(_ uiView: UIView, context: Context) {
+        // TODO: 
+    }
+    
     
     @Binding var cameraVM: CameraViewModel
     let frame: CGRect
@@ -22,7 +26,4 @@ struct CameraPreview: UIViewRepresentable {
         return view
     }
     
-    func updateUIView(_ uiView: UIViewType, context: Context) {
-        
-    }
 }

@@ -37,14 +37,14 @@ class CameraViewModel: NSObject {
     
     private(set) var photoCaptureState: PhotoCaptureState = .notStarted
     
-    func requestAcccessAndSetup() {
+    func requestAcccessAndSetup(position: AVCaptureDevice.Position) {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { didAllowAccess in
-                self.setup()
+                self.setup(position: position)
             }
         case .authorized:
-            self.setup()
+            self.setup(position: position)
         // more cases
         default:
            print("other status")
@@ -52,16 +52,15 @@ class CameraViewModel: NSObject {
         }
     }
     
-    private func setup() {
+    private func setup(position: AVCaptureDevice.Position) {
         session.beginConfiguration()
         session.sessionPreset = AVCaptureSession.Preset.photo
         
         do {
-            guard let device = AVCaptureDevice.default(for: .video) else {
+            guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: position) else {
                 return
             }
             let input = try AVCaptureDeviceInput(device: device)
-            
             guard session.canAddInput(input) else { return }
             session.addInput(input)
             
@@ -69,6 +68,7 @@ class CameraViewModel: NSObject {
             session.addOutput(output)
             
             session.commitConfiguration()
+
             
             Task(priority: .background) {
                 self.session.startRunning()
