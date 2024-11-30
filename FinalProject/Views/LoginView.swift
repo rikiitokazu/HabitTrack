@@ -125,6 +125,7 @@ struct LoginView: View {
                 showingAlert = true
             } else {
                 print("Login success")
+                refreshUserHabits()
                 presentSheet = true
             }
         }

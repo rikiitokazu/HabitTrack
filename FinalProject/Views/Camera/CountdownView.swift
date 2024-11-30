@@ -19,8 +19,7 @@ struct CountdownView: View {
     var body: some View {
         VStack {
             Spacer()
-            Text(countdownFinished ? "hello" : "not hello")
-            Text("Smile!")
+            Text(variation == .front ? "Smile!" : "Take a photo of your habit!")
                 .font(.system(size: 40))
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
@@ -37,6 +36,7 @@ struct CountdownView: View {
         .onAppear {
             startCountdown()
         }
+        .padding()
     }
     
     private func startCountdown() {

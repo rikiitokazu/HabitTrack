@@ -1,5 +1,5 @@
 //
-//  CameraViewFront.swift
+//  CameraFrontView.swift
 //  FinalProject
 //
 //  Created by Riki Itokazu on 11/28/24.
@@ -8,7 +8,7 @@
 import SwiftUI
 import AVFoundation
 
-struct CameraViewFront: View {
+struct CameraFrontView: View {
     @Binding var frontPhoto: Data?
     @Binding var backPhoto: Data?
     @Binding var showCamera: Bool
@@ -35,7 +35,7 @@ struct CameraViewFront: View {
             .onChange(of: countdownFinished) {
                 // TODO: wait until the photoData has loaded. if its not, maybe
                 // just do a ProgressView()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                     if VM.photoData == nil {
                         print("photo has not finished uploading")
                         return
@@ -50,15 +50,15 @@ struct CameraViewFront: View {
 
 }
 
-extension View {    
+extension View {
     func fullScreenBackCamera(isPresented: Binding<Bool>, cameraDisplay: Binding<AVCaptureDevice.Position>, backPhoto: Binding<Data?>, showCamera: Binding<Bool>) -> some View {
         self.fullScreenCover(isPresented: isPresented, content: {
-            CameraViewBack(backPhoto: backPhoto, showCamera: showCamera, cameraDisplay: cameraDisplay)
+            CameraBackView(backPhoto: backPhoto, showCamera: showCamera, cameraDisplay: cameraDisplay)
 
         })
     }
 }
 
 #Preview {
-    CameraViewFront(frontPhoto: .constant(nil), backPhoto: .constant(nil), showCamera: .constant(true), cameraDisplay: .constant(.front))
+    CameraFrontView(frontPhoto: .constant(nil), backPhoto: .constant(nil), showCamera: .constant(true), cameraDisplay: .constant(.front))
 }
