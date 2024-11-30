@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct CameraView: View {
     @Binding var imageData: Data?
     @Binding var imageData2: Data?
     @Binding var showCamera: Bool
-    @Binding var cameraDisplay: Bool 
+    @Binding var cameraDisplay: AVCaptureDevice.Position
     @State private var VM = CameraViewModel()
     @State private var isActive = false
     let controlButtonWidth: CGFloat = 120
@@ -23,7 +24,7 @@ struct CameraView: View {
                 Color.black
                     .ignoresSafeArea()
                 VStack {
-                    cameraDisplay ? Color.yellow : Color.blue
+                    cameraDisplay == .front ? Color.yellow : Color.blue
                     //               cameraPreview
                     // if we don't want allow retakes, just do usePhoto() after we take the pic
                     
@@ -32,7 +33,7 @@ struct CameraView: View {
                 }
             }
             .onAppear() {
-                VM.requestAcccessAndSetup(position: cameraDisplay ? .back : .front)
+                VM.requestAcccessAndSetup(position: cameraDisplay == .back ? .back : .front)
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                     withAnimation {
                         VM.takePhoto()
@@ -46,7 +47,7 @@ struct CameraView: View {
         GeometryReader { geo in
             CameraPreview(cameraVM: $VM, frame: geo.frame(in: .global))
                 .onAppear() {
-                    VM.requestAcccessAndSetup(position: cameraDisplay ? .back : .front)
+                    VM.requestAcccessAndSetup(position: cameraDisplay == .back ? .back : .front)
                 }
         }
         .ignoresSafeArea()
@@ -84,7 +85,7 @@ struct CameraView: View {
     
     private var usePhotoButton: some View {
         ControlButtonView(label: "Use Photo") {
-            if cameraDisplay {
+            if cameraDisplay == .front {
                 imageData = VM.photoData
             } else {
                 imageData2 = VM.photoData
@@ -128,5 +129,5 @@ struct CameraView: View {
 }
 
 #Preview {
-    CameraView(imageData: .constant(nil), imageData2: .constant(nil), showCamera: .constant(true), cameraDisplay: .constant(false))
+    CameraView(imageData: .constant(nil), imageData2: .constant(nil), showCamera: .constant(true), cameraDisplay: .constant(.front))
 }

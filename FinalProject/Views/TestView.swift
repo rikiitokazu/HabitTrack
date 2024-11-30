@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct TestView: View {
     @State private var imageData: Data? = nil
@@ -13,7 +14,7 @@ struct TestView: View {
     @State private var showCamera: Bool = false
     
     // if false, front camera. if true, back camera
-    @State private var cameraDisplay: Bool = false
+    @State private var cameraDisplay: AVCaptureDevice.Position = .front
     var body: some View {
         VStack {
             if let imageData, let uiImage = UIImage(data: imageData) {
@@ -27,7 +28,7 @@ struct TestView: View {
                     .foregroundStyle(.gray)
             }
             Button("Take Upper Photo") {
-                cameraDisplay = false
+                cameraDisplay = .front
                 showCamera = true
             }
             if let imageData2, let uiImage2 = UIImage(data: imageData2) {
@@ -41,7 +42,7 @@ struct TestView: View {
                     .foregroundStyle(.gray)
             }
             Button("Take Bottom Photo") {
-                cameraDisplay = true
+                cameraDisplay = .back
                 showCamera = true
                 
             }
@@ -53,7 +54,7 @@ struct TestView: View {
     }
 }
 extension View {
-    func fullScreenCamera(isPresented: Binding<Bool>, cameraDisplay: Binding<Bool>, imageData: Binding<Data?>, imageData2: Binding<Data?>) -> some View {
+    func fullScreenCamera(isPresented: Binding<Bool>, cameraDisplay: Binding<AVCaptureDevice.Position>, imageData: Binding<Data?>, imageData2: Binding<Data?>) -> some View {
         self.fullScreenCover(isPresented: isPresented, content: {
             CameraView(imageData: imageData, imageData2: imageData2, showCamera: isPresented, cameraDisplay: cameraDisplay)
         })
