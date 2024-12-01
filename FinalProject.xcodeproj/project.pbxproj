@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3A01A9DB2CFAEC1D005D86E5 /* CameraFrontView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A01A9DA2CFAEC1D005D86E5 /* CameraFrontView.swift */; };
+		3A3CBC702CFBDFA1002A08C2 /* HabitPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3CBC6F2CFBDFA1002A08C2 /* HabitPhoto.swift */; };
 		3A8054EF2CFA908700E88821 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8054EE2CFA908700E88821 /* CountdownView.swift */; };
 		3A8055112CFADAD000E88821 /* CameraBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8055102CFADAD000E88821 /* CameraBackView.swift */; };
 		3A823EFE2CF80B4600F441F3 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823EFD2CF80B4600F441F3 /* Habit.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		3A01A9DA2CFAEC1D005D86E5 /* CameraFrontView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraFrontView.swift; sourceTree = "<group>"; };
+		3A3CBC6F2CFBDFA1002A08C2 /* HabitPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitPhoto.swift; sourceTree = "<group>"; };
 		3A8054EE2CFA908700E88821 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownView.swift; sourceTree = "<group>"; };
 		3A8055102CFADAD000E88821 /* CameraBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraBackView.swift; sourceTree = "<group>"; };
 		3A823EFD2CF80B4600F441F3 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				3A823EFD2CF80B4600F441F3 /* Habit.swift */,
+				3A3CBC6F2CFBDFA1002A08C2 /* HabitPhoto.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A3CBC702CFBDFA1002A08C2 /* HabitPhoto.swift in Sources */,
 				3AA98CAB2CFA57BD00B3A411 /* CameraProcessView.swift in Sources */,
 				3A823EFE2CF80B4600F441F3 /* Habit.swift in Sources */,
 				3A937FD62CF656C60025E539 /* LoginView.swift in Sources */,
