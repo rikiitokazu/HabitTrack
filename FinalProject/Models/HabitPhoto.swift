@@ -10,7 +10,7 @@ import SwiftData
 import FirebaseFirestore
 import FirebaseAuth
 
-class HabitPhoto: Identifiable {
+class HabitPhoto: Identifiable, Encodable {
     @DocumentID var id: String?
     var userId: String
     var habitId: String?

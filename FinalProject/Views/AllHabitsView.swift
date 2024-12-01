@@ -6,10 +6,15 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct AllHabitsView: View {
     @State private var dummyHabitPhotos = ["photo", "camera", "pencil", "pencil.circle"]
     @State private var imageIsLoading = false
+    @State private var selectedPhoto: PhotosPickerItem?
+    @State private var data = Data()
+    @State private var pickerIsPresented = true
+    @State private var selectedImage = Image(systemName: "photo")
     var body: some View {
         List(dummyHabitPhotos, id: \.self) { photo in
             LazyVStack (alignment: .leading) {
@@ -19,8 +24,17 @@ struct AllHabitsView: View {
                     Text("11/8/4 4:52 PM")
                         .foregroundStyle(.white)
                 }
+                Button("Save image") {
+                    Task {
+                        await HabitPhotoViewModel.saveImage(habit: Habit(), photo: HabitPhoto(), data: data, display: .front)
+                    }
+                }
                 ZStack {
                     Color.clear
+  
+                    selectedImage
+                        .resizable()
+                        .frame(width: 10, height: 10)
                     
                     // replaced to // if photoisLoading
                     if imageIsLoading {
@@ -44,10 +58,12 @@ struct AllHabitsView: View {
                         }
                 }
             }
+     
             .frame(maxWidth: .infinity) // Expand ZStack to full width
             Text("Caption goes here....")
                 .foregroundStyle(.white)
         }
+
         .padding()
         .task {
             //                await creatures.loadNextIfNeeed(creature: creature)
@@ -56,6 +72,26 @@ struct AllHabitsView: View {
     }
         .background(.black700)
         .listStyle(.plain)
+        
+        .photosPicker(isPresented: $pickerIsPresented, selection: $selectedPhoto)
+        .onChange(of: selectedPhoto) {
+            // turn selectedPhoto into imageView
+            Task {
+                do {
+                   if let image = try await selectedPhoto?.loadTransferable(type: Image.self)
+                    {
+                       selectedImage = image
+                   }
+                    guard let transferredData = try await selectedPhoto?.loadTransferable(type: Data.self) else {
+                        print("error could not convert data from selected Photo")
+                        return
+                    }
+                    data = transferredData
+                } catch {
+                    print("Error: \(error.localizedDescription)")
+                }
+            }
+        }
     
     //        if creatures.isLoading {
     //            ProgressView()
