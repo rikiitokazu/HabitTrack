@@ -21,7 +21,6 @@ class HabitPhoto: Identifiable {
     var user: String
     
     init(id: String? = nil, userId: String = Auth.auth().currentUser?.uid ?? "", habitId: String? = nil, dateCreated: Date = Date.now, caption: String = "", frontImageURLString: String = "", backImageURLString: String = "", user: String = Auth.auth().currentUser?.email ?? "") {
-        self.id = id
         self.userId = userId
         self.habitId = habitId
         self.dateCreated = dateCreated
