@@ -9,6 +9,8 @@ import SwiftUI
 import AVFoundation
 
 struct CameraProcessView: View {
+    @State var habit: Habit?
+    
     @State private var frontPhoto: Data? = nil
     @State private var backPhoto: Data? = nil
     
@@ -87,5 +89,5 @@ extension View {
 }
 
 #Preview {
-    CameraProcessView()
+    CameraProcessView(habit: Habit())
 }

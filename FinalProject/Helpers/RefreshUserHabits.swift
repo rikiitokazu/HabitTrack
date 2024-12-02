@@ -21,6 +21,7 @@ func refreshUserHabits() {
         return
     }
     if isSameDate(as: lastSigned) {
+        print("\(lastSigned)")
         print("---same date, no need to refresh")
         return
     }
@@ -71,7 +72,7 @@ func missesInDay(habit: Habit, start: Date)  {
     }
     
     Task {
-        guard let id = await HabitViewModel.saveHabit(habit: habit) else {
+        guard let _ = await HabitViewModel.saveHabit(habit: habit) else {
             print("error: failed to save habit")
             return
         }
@@ -82,7 +83,7 @@ func missesInDay(habit: Habit, start: Date)  {
 func resetCompletedForTheDay(habit: Habit) {
     habit.completedForTheDay = 0
     Task {
-        guard let id = await HabitViewModel.saveHabit(habit: habit) else {
+        guard let _ = await HabitViewModel.saveHabit(habit: habit) else {
             print("failed to save habit")
             return
         }

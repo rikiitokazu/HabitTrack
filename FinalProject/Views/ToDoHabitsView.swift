@@ -18,10 +18,10 @@ struct ToDoHabitsView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        NavigationStack {
             List(getIncompleteHabits()) { habit in
                 NavigationLink {
                     // Opens Camera View
+                    CameraProcessView(habit: habit)
                     
                 } label: {
                     VStack (alignment: .leading){
@@ -55,8 +55,6 @@ struct ToDoHabitsView: View {
                 
             }
             .listStyle(.plain)
-            .navigationTitle("Habits to do")
-        }
         
     }
     
@@ -132,5 +130,7 @@ struct ToDoHabitsView: View {
 }
 
 #Preview {
-    ToDoHabitsView()
+    NavigationStack {
+        ToDoHabitsView()
+    }
 }
