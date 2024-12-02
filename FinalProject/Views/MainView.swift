@@ -1,5 +1,5 @@
 //
-//  AllHabitsView.swift
+//  MainView.swift
 //  FinalProject
 //
 //  Created by Riki Itokazu on 11/30/24.
@@ -8,7 +8,7 @@
 import SwiftUI
 import PhotosUI
 
-struct AllHabitsView: View {
+struct MainView: View {
     @State private var dummyHabitPhotos = ["photo", "camera", "pencil", "pencil.circle"]
     @State private var imageIsLoading = false
     @State private var selectedPhoto: PhotosPickerItem?
@@ -19,8 +19,13 @@ struct AllHabitsView: View {
     @State private var discoveryShow = true
     var body: some View {
         VStack {
-            VStack {
+            Group {
                 HStack (alignment: .center){
+                    Image(systemName: "person.crop.circle.fill")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .foregroundStyle(.white)
+                    
                     Spacer()
                     
                     HStack (spacing: 0) {
@@ -31,16 +36,12 @@ struct AllHabitsView: View {
                     }
                     .font(.title)
                     .bold()
-                    .padding(.leading, 40)
+                    .padding(.trailing, 30)
                     
-
                     
                     Spacer()
                     
-                    Image(systemName: "person.crop.circle.fill")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .foregroundStyle(.white)
+ 
                     
                 }
                 .padding([.trailing, .leading, .bottom])
@@ -85,58 +86,10 @@ struct AllHabitsView: View {
                 }
             }
             .background(.black700)
-            List(dummyHabitPhotos, id: \.self) { photo in
-                LazyVStack (alignment: .leading) {
-                    VStack (alignment: .leading) {
-                        Text("username")
-                            .foregroundStyle(.white)
-                        Text("11/8/4 4:52 PM")
-                            .foregroundStyle(.white)
-                    }
-                    Button("Save image") {
-                        Task {
-                            await HabitPhotoViewModel.saveImage(habit: Habit(), photo: HabitPhoto(), data: data, display: .front)
-                        }
-                    }
-                    ZStack {
-                        Color.clear
-                        
-                        selectedImage
-                            .resizable()
-                            .frame(width: 10, height: 10)
-                        
-                        // replaced to // if photoisLoading
-                        if imageIsLoading {
-                            VStack(alignment: .center) {
-                                Rectangle()
-                                    .fill(.black600)
-                                    .frame(width: 330, height: 430)
-                            }
-                        } else {
-                            ZStack (alignment: .topLeading) {
-                                Image(systemName: "photo")
-                                    .resizable()
-                                    .frame(width: 330, height: 430)
-                                    .border(.blue300, width: 3)
-                                
-                                Image(systemName: "camera.fill")
-                                    .resizable()
-                                    .foregroundStyle(.blue800)
-                                    .frame(width: 100, height: 100)
-                                    .border(.blue300, width: 3)
-                            }
-                        }
-                    }
-                    
-                    .frame(maxWidth: .infinity) // Expand ZStack to full width
-                    Text("Caption goes here....")
-                        .foregroundStyle(.white)
-                }
-                .padding()
-                .task {
-                    //                await creatures.loadNextIfNeeed(creature: creature)
-                }
-                .listRowBackground(Color(.black700))
+            if discoveryShow {
+                DiscoveryView()
+            } else {
+                ToDoHabitsView()
             }
         }
         .background(.black700)
@@ -170,6 +123,7 @@ struct AllHabitsView: View {
     }
 }
 
+
 #Preview {
-    AllHabitsView()
+    MainView()
 }
