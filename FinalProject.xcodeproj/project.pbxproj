@@ -12,6 +12,7 @@
 		3A3CBC722CFBE184002A08C2 /* DiscoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3CBC712CFBE184002A08C2 /* DiscoveryView.swift */; };
 		3A3CBC9A2CFC13A2002A08C2 /* HabitPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3CBC992CFC13A2002A08C2 /* HabitPhotoViewModel.swift */; };
 		3A44648F2CFE6CC800394465 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A44648E2CFE6CC800394465 /* User.swift */; };
+		3A4464912CFE6F1800394465 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4464902CFE6F1800394465 /* UserViewModel.swift */; };
 		3A8054EF2CFA908700E88821 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8054EE2CFA908700E88821 /* CountdownView.swift */; };
 		3A8055112CFADAD000E88821 /* CameraBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8055102CFADAD000E88821 /* CameraBackView.swift */; };
 		3A823EFE2CF80B4600F441F3 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823EFD2CF80B4600F441F3 /* Habit.swift */; };
@@ -40,6 +41,7 @@
 		3A3CBC712CFBE184002A08C2 /* DiscoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryView.swift; sourceTree = "<group>"; };
 		3A3CBC992CFC13A2002A08C2 /* HabitPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitPhotoViewModel.swift; sourceTree = "<group>"; };
 		3A44648E2CFE6CC800394465 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		3A4464902CFE6F1800394465 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		3A8054EE2CFA908700E88821 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownView.swift; sourceTree = "<group>"; };
 		3A8055102CFADAD000E88821 /* CameraBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraBackView.swift; sourceTree = "<group>"; };
 		3A823EFD2CF80B4600F441F3 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			children = (
 				3AA98CB52CFA635C00B3A411 /* CameraViewModel.swift */,
 				3A823F182CF8328300F441F3 /* HabitViewModel.swift */,
+				3A4464902CFE6F1800394465 /* UserViewModel.swift */,
 				3A3CBC992CFC13A2002A08C2 /* HabitPhotoViewModel.swift */,
 			);
 			path = ViewModels;
@@ -260,6 +263,7 @@
 				3A823F352CF92A0800F441F3 /* RefreshUserHabits.swift in Sources */,
 				3A823F1D2CF8F23600F441F3 /* ToDoHabitsView.swift in Sources */,
 				3A823F192CF8328300F441F3 /* HabitViewModel.swift in Sources */,
+				3A4464912CFE6F1800394465 /* UserViewModel.swift in Sources */,
 				3AA98CA32CF995AD00B3A411 /* CameraPermission.swift in Sources */,
 				3AA98CB62CFA635C00B3A411 /* CameraViewModel.swift in Sources */,
 				3A3CBC722CFBE184002A08C2 /* DiscoveryView.swift in Sources */,

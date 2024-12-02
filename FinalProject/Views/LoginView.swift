@@ -114,6 +114,14 @@ struct LoginView: View {
                 showingAlert = true
             } else {
                 print("Registrration success")
+                Task {
+                    guard let id = await UserViewModel.saveUser(user: User()) else {
+                        print("error: failed to save user")
+                        return
+                    }
+                    print("\(id)")
+                    
+                }
                 presentSheet = true
             }
         }
@@ -127,7 +135,7 @@ struct LoginView: View {
                 showingAlert = true
             } else {
                 print("Login success")
-                refreshUserHabits()
+                refreshUserHabits(userId: Auth.auth().currentUser!.uid)
                 presentSheet = true
             }
         }

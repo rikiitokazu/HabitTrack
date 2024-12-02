@@ -11,10 +11,11 @@ import FirebaseAuth
 import FirebaseFirestore
 
 
-func refreshUserHabits() {
+func refreshUserHabits(userId: String?) {
     // Get all the habits for the current user
     @FirestoreQuery(collectionPath: "habits",
-                    predicates: [.isEqualTo("userId", Auth.auth().currentUser?.uid ?? "")]) var habits: [Habit]
+                    predicates: [.isEqualTo("userId", userId ?? "")]) var habits: [Habit]
+//    @FirestoreQuery(collectionPath: "user")
     // if current login time is the same as last logged in
     guard let lastSigned = Auth.auth().currentUser?.metadata.lastSignInDate else {
         print("---- user not signed in")

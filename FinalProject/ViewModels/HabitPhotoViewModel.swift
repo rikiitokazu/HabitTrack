@@ -27,7 +27,7 @@ class HabitPhotoViewModel {
         if photo.id == nil {
             photo.id = UUID().uuidString
         }
-        let photoName = UUID().uuidString
+        let _ = UUID().uuidString
         metadata.contentType = "image/jpeg"
         let path = "\("dummy")/\(photo.id ?? "n/a")"
         
