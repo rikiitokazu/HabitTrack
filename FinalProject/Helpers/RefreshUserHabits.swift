@@ -15,14 +15,11 @@ func refreshUserHabits(userId: String?) {
     // Get all the habits for the current user
     @FirestoreQuery(collectionPath: "habits",
                     predicates: [.isEqualTo("userId", userId ?? "")]) var habits: [Habit]
-//    @FirestoreQuery(collectionPath: "user")
-    // if current login time is the same as last logged in
-    guard let lastSigned = Auth.auth().currentUser?.metadata.lastSignInDate else {
-        print("---- user not signed in")
-        return
-    }
-    if isSameDate(as: lastSigned) {
-        print("\(lastSigned)")
+    @FirestoreQuery(collectionPath: "users",
+                    predicates: [.isEqualTo("userId", userId ?? "")]) var users: [User]
+    let user = users.first!
+
+    if isSameDate(as: user.lastLogin) {
         print("---same date, no need to refresh")
         return
     }
@@ -30,9 +27,13 @@ func refreshUserHabits(userId: String?) {
     // For each habit, calculate the amount of habits missed
     // Then, update the completedForTheDay to 0
     for habit in habits {
-        missesInDay(habit: habit, start: lastSigned)
+        missesInDay(habit: habit, start: user.lastLogin)
         resetCompletedForTheDay(habit: habit)
     }
+    
+    
+    // Update user.lastLogin to be now
+    updateLastLogin(user: user)
 }
 
 
@@ -90,3 +91,14 @@ func resetCompletedForTheDay(habit: Habit) {
         }
     }
 }
+
+func updateLastLogin(user: User) {
+    user.lastLogin = Date.now
+    Task {
+        guard let _ = await UserViewModel.saveUser(user: user) else {
+            print("failed to save habit")
+            return
+        }
+    }
+}
+
