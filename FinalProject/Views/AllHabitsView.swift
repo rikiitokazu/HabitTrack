@@ -15,6 +15,8 @@ struct AllHabitsView: View {
     @State private var data = Data()
     @State private var pickerIsPresented = false
     @State private var selectedImage = Image(systemName: "photo")
+    
+    @State private var discoveryShow = true
     var body: some View {
         VStack {
             VStack {
@@ -47,14 +49,15 @@ struct AllHabitsView: View {
                 HStack {
                     Button {
                         // trigger separate view
+                        discoveryShow = false
                     } label: {
                         Text("Your Habits")
                             .font(.title3)
-                            .foregroundStyle(.gray)
+                            .foregroundStyle(discoveryShow ? .black100 : .white)
                             .overlay {
                                 Rectangle()
                                     .frame(height: 1)
-                                    .foregroundStyle(.clear)
+                                    .foregroundStyle(discoveryShow ? .clear : .blue400)
                                     .frame(maxHeight: .infinity, alignment: .bottom)
                                     .padding([.top], 30)
                             }
@@ -65,14 +68,15 @@ struct AllHabitsView: View {
                     
                     Button {
                         // trigger separate view
+                        discoveryShow = true
                     } label: {
                         Text("Discovery")
                             .font(.title3)
-                            .foregroundStyle(.white)
+                            .foregroundStyle(discoveryShow ? .white : .black100)
                             .overlay {
                                 Rectangle()
                                     .frame(height: 2)
-                                    .foregroundStyle(.blue400)
+                                    .foregroundStyle(discoveryShow ? .blue400 : .clear)
                                     .frame(maxHeight: .infinity, alignment: .bottom)
                                     .padding([.top], 30)
                             }
