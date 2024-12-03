@@ -21,6 +21,8 @@ struct CameraProcessView: View {
     
     @State private var cameraDisplay: AVCaptureDevice.Position = .front
     
+    @State private var uploaded = false
+    
     @Environment(\.dismiss) var dismiss
     var body: some View {
         VStack {
@@ -66,12 +68,14 @@ struct CameraProcessView: View {
             
             Button {
                // upload photo
-                let newHabitPhoto = HabitPhoto()
+                let newHabitPhoto = HabitPhoto(habitId: "\(habit?.id ?? "")")
                 Task {
                     await HabitPhotoViewModel.saveImage(habit: habit!, photo: newHabitPhoto, data: frontPhoto!, display: .front)
                     
                     
                     await HabitPhotoViewModel.saveImage(habit: habit!, photo: newHabitPhoto, data: backPhoto!, display: .back)
+                    
+                    uploaded = true
                 }
 
                 
@@ -95,6 +99,9 @@ struct CameraProcessView: View {
             }
         }
         .fullScreenFrontCamera(isPresented: $showFrontCamera, cameraDisplay: $cameraDisplay, frontPhoto: $frontPhoto, backPhoto: $backPhoto)
+        .fullScreenCover(isPresented: $uploaded) {
+            MainView()
+        }
         .padding()
     }
 }

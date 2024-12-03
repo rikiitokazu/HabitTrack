@@ -29,7 +29,7 @@ class HabitPhotoViewModel {
         }
         let _ = UUID().uuidString
         metadata.contentType = "image/jpeg"
-        let path = "\("dummy")/\(photo.id ?? "n/a")"
+        let path = "\("dummy")/\(UUID().uuidString)"
         
         do {
             let storageref = storage.child(path)
@@ -45,6 +45,7 @@ class HabitPhotoViewModel {
             } else {
                 photo.backImageURLString = url.absoluteString
             }
+            print(url.absoluteString)
             print("photo image url string")
             
             let db = Firestore.firestore()
