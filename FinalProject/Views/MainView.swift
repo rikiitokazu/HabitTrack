@@ -11,12 +11,9 @@ import PhotosUI
 struct MainView: View {
     @State private var dummyHabitPhotos = ["photo", "camera", "pencil", "pencil.circle"]
     @State private var imageIsLoading = false
-    @State private var selectedPhoto: PhotosPickerItem?
     @State private var data = Data()
-    @State private var pickerIsPresented = false
-    @State private var selectedImage = Image(systemName: "photo")
     
-    
+    @State private var showCreateHabitSheet = false
     @State private var isProfileDrawerOpen = false
     @State private var showToDo = false
     var body: some View {
@@ -44,27 +41,31 @@ struct MainView: View {
                 }
                 
                 ProfileNavView(isShowing: $isProfileDrawerOpen)
+                
+                if !showToDo && !isProfileDrawerOpen {
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            Image(systemName: "plus.circle.fill")
+                                .resizable()
+                                .symbolRenderingMode(.monochrome)
+                                .frame(width: 40, height: 40)
+                                .foregroundStyle(.blue500)
+                                .padding()
+                                .onTapGesture {
+                                    showCreateHabitSheet = true
+                                }
+                            
+                        }
+                    }
+                }
             }
             .background(.black800)
             .listStyle(.plain)
-            
-            .photosPicker(isPresented: $pickerIsPresented, selection: $selectedPhoto)
-            .onChange(of: selectedPhoto) {
-                // turn selectedPhoto into imageView
-                Task {
-                    do {
-                        if let image = try await selectedPhoto?.loadTransferable(type: Image.self)
-                        {
-                            selectedImage = image
-                        }
-                        guard let transferredData = try await selectedPhoto?.loadTransferable(type: Data.self) else {
-                            print("error could not convert data from selected Photo")
-                            return
-                        }
-                        data = transferredData
-                    } catch {
-                        print("Error: \(error.localizedDescription)")
-                    }
+            .sheet(isPresented: $showCreateHabitSheet) {
+                NavigationStack {
+                    CreateHabitView(habit: Habit())
                 }
             }
         }
