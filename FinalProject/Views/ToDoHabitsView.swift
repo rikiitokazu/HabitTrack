@@ -17,44 +17,24 @@ struct ToDoHabitsView: View {
     //    @State private var sheetIsPresented = false
     @Environment(\.dismiss) private var dismiss
     
+    @State private var showCameraProcessView = false
+    @State private var showCreateHabitView = false
+
+    
     var body: some View {
-            List(getIncompleteHabits()) { habit in
-                NavigationLink {
-                    // Opens Camera View
-                    CameraProcessView(habit: habit)
-                    
-                } label: {
-                    VStack (alignment: .leading){
-                        HStack (alignment: .center){
-                            Image(systemName: getCorrectIcon())
-                                .foregroundStyle(Color(getCorrectIconColor()))
-                            
-                            Text(habit.habitName)
-                            Spacer()
-                            Text("\(habit.completedForTheDay)/\(habit.frequency.rawValue)")
-                        }
-                        HStack (alignment: .center) {
-                            Spacer()
-                            Text("Last completed: 11/3/4 : 4:00pm")
-                                .font(.caption)
-                        }
-                        
-                    }
+        VStack {
+            if getIncompleteHabits().isEmpty {
+                NoHabitsView
+            } else {
+                VStack {
+                    HabitsView
                 }
-                // test buttons
-                Button {
-                    markAsDone(habit: habit)
-                } label: {
-                    Image(systemName: "plus")
-                }
-                Button {
-                    removeOne(habit: habit)
-                } label: {
-                    Image(systemName: "plus")
-                }
-                
+                .background(.black800)
+                .listStyle(.plain)
+                .navigationBarBackButtonHidden(true)
             }
-            .listStyle(.plain)
+        }
+        
         
     }
     
@@ -102,7 +82,7 @@ struct ToDoHabitsView: View {
         default:
             return .blue300
         }
-
+        
     }
     
     func markAsDone(habit: Habit) {
@@ -129,6 +109,73 @@ struct ToDoHabitsView: View {
     }
 }
 
+
+extension ToDoHabitsView {
+    
+    private var HabitsView: some View {
+        List(getIncompleteHabits()) { habit in
+            VStack {
+                VStack (alignment: .leading){
+                    HStack (alignment: .center){
+                        Image(systemName: getCorrectIcon())
+                            .foregroundStyle(Color(getCorrectIconColor()))
+                        
+                        Text(habit.habitName)
+                        Spacer()
+                        Text("\(habit.completedForTheDay)/\(habit.frequency.rawValue)")
+                    }
+                    HStack (alignment: .center) {
+                        Spacer()
+                        Text("Last completed: 11/3/4 : 4:00pm")
+                            .font(.caption)
+                    }
+                    
+                }
+                
+                .foregroundStyle(.white)
+                
+                // test buttons
+                Button {
+                    markAsDone(habit: habit)
+                } label: {
+                    Image(systemName: "plus")
+                }
+                Button {
+                    removeOne(habit: habit)
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+            .onTapGesture {
+                showCameraProcessView = true
+            }
+            .fullScreenCover(isPresented: $showCameraProcessView) {
+                NavigationStack {
+                    CameraProcessView(habit: habit)
+                }
+            }
+            .listRowBackground(Color(.black700))
+        }
+    }
+    private var NoHabitsView: some View {
+        VStack {
+            Text("No Habits Yet!")
+                .font(.title3)
+                .foregroundStyle(.white)
+           
+            Button("Create one") {
+                showCreateHabitView = true
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.black700)
+        .sheet(isPresented: $showCreateHabitView) {
+            NavigationStack {
+                CreateHabitView(habit: Habit())
+            }
+        }
+    }
+}
 #Preview {
     NavigationStack {
         ToDoHabitsView()

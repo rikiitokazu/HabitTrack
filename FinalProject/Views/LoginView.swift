@@ -19,7 +19,7 @@ struct LoginView: View {
     @State private var showingAlert = false
     @State private var alertMessage = ""
     @State private var buttonDisabled = true
-    @State private var presentSheet = false
+    @State private var presentMain = false
     @FocusState private var focusField: Field?
     
     
@@ -90,14 +90,14 @@ struct LoginView: View {
             Button ("OK", role:.cancel) {}
         }
         .onAppear() {
-            if Auth.auth().currentUser != nil {
-                print("Log in successful")
-                presentSheet = true
-            }
+//            if Auth.auth().currentUser != nil {
+//                print("Log in successful")
+//                presentMain = true
+//            }
         }
-//        .fullScreenCover(isPresented: $presentSheet) {
-//            
-//        }
+        .fullScreenCover(isPresented: $presentMain) {
+           MainView()
+        }
     }
     
     func enableButtons() {
@@ -122,7 +122,7 @@ struct LoginView: View {
                     print("\(id)")
                     
                 }
-                presentSheet = true
+                presentMain = true
             }
         }
     }
@@ -136,7 +136,7 @@ struct LoginView: View {
             } else {
                 print("Login success")
                 refreshUserHabits(userId: Auth.auth().currentUser!.uid)
-                presentSheet = true
+                presentMain = true
             }
         }
     }

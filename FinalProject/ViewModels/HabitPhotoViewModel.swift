@@ -49,7 +49,13 @@ class HabitPhotoViewModel {
             
             let db = Firestore.firestore()
             do {
-                try db.collection("photos").document(photo.id!).setData(from: photo)
+                if let id = photo.id {
+                    try db.collection("photos").document(id).setData(from:photo)
+                } else {
+                    print("--- failed to unwrap photo.id")
+                    return
+                }
+                
             } catch {
                 print("ERROR could not upload photo in url")
             }

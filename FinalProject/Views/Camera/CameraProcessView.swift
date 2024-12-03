@@ -20,6 +20,8 @@ struct CameraProcessView: View {
     @State private var photoDescription: String = ""
     
     @State private var cameraDisplay: AVCaptureDevice.Position = .front
+    
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         VStack {
             HStack {
@@ -64,6 +66,15 @@ struct CameraProcessView: View {
             
             Button {
                // upload photo
+                let newHabitPhoto = HabitPhoto()
+                Task {
+                    await HabitPhotoViewModel.saveImage(habit: habit!, photo: newHabitPhoto, data: frontPhoto!, display: .front)
+                    
+                    
+                    await HabitPhotoViewModel.saveImage(habit: habit!, photo: newHabitPhoto, data: backPhoto!, display: .back)
+                }
+
+                
             } label: {
                 HStack {
                     Image(systemName: "square.and.arrow.up")
@@ -74,6 +85,14 @@ struct CameraProcessView: View {
             .disabled(frontPhoto == nil || backPhoto == nil || photoDescription.isEmpty)
             
             Spacer()
+        }
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button("Back") {
+                    dismiss()
+                }
+            }
         }
         .fullScreenFrontCamera(isPresented: $showFrontCamera, cameraDisplay: $cameraDisplay, frontPhoto: $frontPhoto, backPhoto: $backPhoto)
         .padding()
@@ -89,5 +108,7 @@ extension View {
 }
 
 #Preview {
-    CameraProcessView(habit: Habit())
+    NavigationStack {
+        CameraProcessView(habit: Habit())
+    }
 }

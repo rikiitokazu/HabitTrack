@@ -13,7 +13,7 @@ struct DiscoveryView: View {
     @State private var imageIsLoading = false
     @State private var selectedPhoto: PhotosPickerItem?
     @State private var data = Data()
-    @State private var pickerIsPresented = false
+    @State private var pickerIsPresented = true
     @State private var selectedImage = Image(systemName: "photo")
     
     @State private var discoveryShow = true

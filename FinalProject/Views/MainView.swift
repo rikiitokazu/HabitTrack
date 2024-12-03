@@ -16,49 +16,24 @@ struct MainView: View {
     @State private var pickerIsPresented = false
     @State private var selectedImage = Image(systemName: "photo")
     
-    @State private var discoveryShow = true
+    @State private var showToDo = false
     var body: some View {
         VStack {
             Group {
-                HStack (alignment: .center){
-                    Image(systemName: "person.crop.circle.fill")
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .foregroundStyle(.white)
-                    
-                    Spacer()
-                    
-                    HStack (spacing: 0) {
-                        Text("Habit")
-                            .foregroundStyle(.white)
-                        Text("Track.")
-                            .foregroundStyle(.blue400)
-                    }
-                    .font(.title)
-                    .bold()
-                    .padding(.trailing, 30)
-                    
-                    
-                    Spacer()
-                    
- 
-                    
-                }
-                .padding([.trailing, .leading, .bottom])
-                .padding(.top, 10)
+                header
                 
                 HStack {
                     Button {
                         // trigger separate view
-                        discoveryShow = false
+                        showToDo = true
                     } label: {
                         Text("Your Habits")
                             .font(.title3)
-                            .foregroundStyle(discoveryShow ? .black100 : .white)
+                            .foregroundStyle(showToDo ? .white : .black100)
                             .overlay {
                                 Rectangle()
                                     .frame(height: 1)
-                                    .foregroundStyle(discoveryShow ? .clear : .blue400)
+                                    .foregroundStyle(showToDo ? .blue400 : .clear)
                                     .frame(maxHeight: .infinity, alignment: .bottom)
                                     .padding([.top], 30)
                             }
@@ -69,15 +44,15 @@ struct MainView: View {
                     
                     Button {
                         // trigger separate view
-                        discoveryShow = true
+                        showToDo = false
                     } label: {
                         Text("Discovery")
                             .font(.title3)
-                            .foregroundStyle(discoveryShow ? .white : .black100)
+                            .foregroundStyle(showToDo ? .black100 : .white)
                             .overlay {
                                 Rectangle()
                                     .frame(height: 2)
-                                    .foregroundStyle(discoveryShow ? .blue400 : .clear)
+                                    .foregroundStyle(showToDo ? .clear : .blue400)
                                     .frame(maxHeight: .infinity, alignment: .bottom)
                                     .padding([.top], 30)
                             }
@@ -86,10 +61,13 @@ struct MainView: View {
                 }
             }
             .background(.black700)
-            if discoveryShow {
-                DiscoveryView()
+            
+            if showToDo {
+                NavigationStack {
+                    ToDoHabitsView()
+                }
             } else {
-                ToDoHabitsView()
+                DiscoveryView()
             }
         }
         .background(.black700)
@@ -123,6 +101,36 @@ struct MainView: View {
     }
 }
 
+extension MainView {
+    private var header: some View {
+        HStack (alignment: .center){
+            Image(systemName: "person.crop.circle.fill")
+                .resizable()
+                .frame(width: 30, height: 30)
+                .foregroundStyle(.white)
+            
+            Spacer()
+            
+            HStack (spacing: 0) {
+                Text("Habit")
+                    .foregroundStyle(.white)
+                Text("Track.")
+                    .foregroundStyle(.blue400)
+            }
+            .font(.title)
+            .bold()
+            .padding(.trailing, 30)
+            
+            
+            Spacer()
+            
+
+            
+        }
+        .padding([.trailing, .leading, .bottom])
+        .padding(.top, 10)
+    }
+}
 
 #Preview {
     MainView()
