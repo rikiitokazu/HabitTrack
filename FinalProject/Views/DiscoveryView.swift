@@ -7,74 +7,151 @@
 
 import SwiftUI
 import PhotosUI
+import Firebase
+import FirebaseAuth
+import FirebaseFirestore
 
 struct DiscoveryView: View {
-    @State private var dummyHabitPhotos = ["photo", "camera", "pencil", "pencil.circle"]
-    @State private var imageIsLoading = false
-    @State private var selectedPhoto: PhotosPickerItem?
+    @FirestoreQuery(collectionPath: "photos") var photos: [HabitPhoto]
     @State private var data = Data()
-    @State private var pickerIsPresented = true
-    @State private var selectedImage = Image(systemName: "photo")
     
     @State private var discoveryShow = true
+    @State private var orderOfPhotos = true
+    
     var body: some View {
-            List(dummyHabitPhotos, id: \.self) { photo in
+        ZStack {
+            List(sortedPhotos) { photo in
                 LazyVStack (alignment: .leading) {
                     VStack (alignment: .leading) {
-                        Text("username")
+                        Text("\(photo.user)")
                             .foregroundStyle(.white)
-                        Text("11/8/4 4:52 PM")
+                        Text("\(photo.dateCreated.formatted(date: .abbreviated, time: .shortened))")
                             .foregroundStyle(.white)
-                    }
-                    Button("Save image") {
-                        Task {
-                            await HabitPhotoViewModel.saveImage(habit: Habit(), photo: HabitPhoto(), data: data, display: .front)
-                        }
                     }
                     ZStack {
                         Color.clear
                         
-                        selectedImage
-                            .resizable()
-                            .frame(width: 10, height: 10)
-                        
-                        // replaced to // if photoisLoading
-                        if imageIsLoading {
-                            VStack(alignment: .center) {
-                                Rectangle()
-                                    .fill(.black600)
-                                    .frame(width: 330, height: 430)
-                            }
-                        } else {
-                            ZStack (alignment: .topLeading) {
-                                Image(systemName: "photo")
-                                    .resizable()
-                                    .frame(width: 330, height: 430)
-                                    .border(.blue300, width: 3)
-                                
-                                Image(systemName: "camera.fill")
-                                    .resizable()
-                                    .foregroundStyle(.blue800)
-                                    .frame(width: 100, height: 100)
-                                    .border(.blue300, width: 3)
+                        ZStack (alignment: .topLeading) {
+                            if orderOfPhotos {
+                                backView(photo.backImageURLString)
+                                frontView(photo.frontImageURLString)
+                            } else {
+                                backView(photo.frontImageURLString)
+                                frontView(photo.backImageURLString)
                             }
                         }
+                        
                     }
                     
                     .frame(maxWidth: .infinity) // Expand ZStack to full width
-                    Text("Caption goes here....")
+                    Text("\(photo.caption)")
                         .foregroundStyle(.white)
                 }
                 .padding()
                 .task {
-                    //                await creatures.loadNextIfNeeed(creature: creature)
+                    // await creatures.loadNextIfNeeed(creature: creature)
                 }
                 .listRowBackground(Color(.black700))
             }
+            
+            
+            if photos.isEmpty {
+                VStack {
+                    Text("Loading photos...")
+                        .foregroundStyle(.white)
+                        .italic()
+                        .bold()
+                    Spacer()
+                        .frame(height: 50)
+                    ProgressView()
+                        .tint(.white)
+                        .scaleEffect(3)
+                }
+            }
+        }
         
     }
+    
+    var sortedPhotos: [HabitPhoto] {
+        if photos.isEmpty {
+            return []
+        } else {
+            return photos.sorted { $0.dateCreated > $1.dateCreated }
+        }
+    }
+    
 }
 
+
+
+extension DiscoveryView {
+    private func backView(_ backViewUrl: String) -> some View {
+        let backUrl = URL(string: backViewUrl)
+        return (
+            AsyncImage(url: backUrl) { image in
+                image
+                    .resizable()
+                    .frame(width: 330, height: 430)
+                    .clipShape(RoundedRectangle(cornerRadius: 10)) 
+                    .overlay {
+                        RoundedRectangle(cornerRadius:10)
+                            .stroke(Color.black)
+                    }
+            } placeholder: {
+                Rectangle()
+                    .fill(Color(.black500))
+                    .frame(width: 330, height: 430)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .blinking(duration: 0.5)
+                    .overlay {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.black)
+                            ProgressView()
+                                .tint(.white)
+                        }
+                    }
+                
+                
+            }
+        )
+    }
+    
+    
+    private func frontView(_ frontViewUrl: String) -> some View {
+        let frontUrl = URL(string: frontViewUrl)
+        return (
+            AsyncImage(url: frontUrl) { image in
+                image
+                    .resizable()
+                    .frame(width: 130, height: 150)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.black)
+                    }
+            } placeholder: {
+                Rectangle()
+                    .fill(Color.black500)
+                    .frame(width:130, height: 150)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .blinking(duration: 0.5)
+                    .overlay {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.black)
+                            ProgressView()
+                                .tint(.white)
+                        }
+                        
+                    }
+            }
+                .onTapGesture {
+                    orderOfPhotos = !orderOfPhotos
+                }
+        )
+    }
+}
 #Preview {
     DiscoveryView()
 }

@@ -19,8 +19,15 @@ struct MainView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                VStack {
+                VStack (spacing: 0){
                     header
+                        .overlay {
+                            Rectangle()
+                                .frame(height: 1)
+                                .foregroundStyle(.black600)
+                                .frame(maxHeight: .infinity, alignment: .bottom)
+                            
+                        }
                     
                     if showToDo {
                         NavigationStack {
