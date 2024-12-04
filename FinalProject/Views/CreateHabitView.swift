@@ -18,37 +18,63 @@ struct CreateHabitView: View {
     
     @Environment(\.dismiss) private var dismiss
     var body: some View {
-        List {
-            TextField("Enter a habit", text: $habit.habitName)
-                .font(.title)
-                .textFieldStyle(.roundedBorder)
-                .padding(.vertical)
-                .listRowSeparator(.hidden)
-            
-            Picker("Frequency (per day)", selection: $frequency) {
-                ForEach(FrequencyAmount.allCases, id: \.self) { num in
-                    Text("\(num.rawValue)")
+        VStack {
+            GPTPromptView()
+                .overlay {
+                    Rectangle()
+                        .frame(height: 1)
+                        .foregroundStyle(.black400)
+                        .frame(maxHeight: .infinity, alignment: .bottom)
+                }
+            VStack (alignment: .leading, spacing: 0) {
+                Text("Habit Name:")
+                    .font(.title3)
+                    .bold()
+                    .foregroundStyle(.white)
+                    .padding(.bottom, 4)
+                TextField("Enter a habit", text: $habit.habitName)
+                    .textFieldStyle(.roundedBorder)
+                    .listRowSeparator(.hidden)
+            }
+            .padding()
+            HStack {
+                Text("Frequency (per/day)")
+                    .foregroundStyle(.white)
+                    .font(.title3)
+                    .bold()
+                Spacer()
+                Picker("", selection: $frequency) {
+                    ForEach(FrequencyAmount.allCases, id: \.self) { num in
+                        Text("\(num.rawValue)")
+                            .foregroundStyle(.white)
+                    }
                 }
             }
+            .padding()
+            VStack (alignment: .leading, spacing: 0) {
+                Text("Notes:")
+                    .font(.title3)
+                    .bold()
+                    .foregroundStyle(.white)
+                    .padding(.bottom, 4)
+                    
+                
+                TextField("Add a description/notes...", text: $habit.description)
+                    .textFieldStyle(.roundedBorder)
+                    .listRowSeparator(.hidden)
+            }
+            .padding()
             
             Toggle("Set Reminder\(frequency == .one ? "" : "s"):", isOn: $habit.reminderIsOn)
-                .padding(.top)
+                .foregroundStyle(.white)
+                .font(.title3)
+                .bold()
                 .listRowSeparator(.hidden)
-            
-//            DatePicker("Description:", selection:$habit.dateCreated)
-//                .listRowSeparator(.hidden)
-//                .padding(.bottom)
-//                .disabled(!false)
-            
-            Text("Description:")
-                .padding(.top)
-            
-            
-            TextField("Add a description...", text: $habit.description, axis: .vertical)
-                .textFieldStyle(.roundedBorder)
-                .listRowSeparator(.hidden)
+                .padding()
         }
-        .listStyle(.plain)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(.black800))
+        .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {

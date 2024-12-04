@@ -31,6 +31,7 @@ struct AsyncButton<Label: View>: View {
             label
         }
         .disabled(isRunning)
+        
     }
 }
 
