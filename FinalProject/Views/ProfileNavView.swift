@@ -27,14 +27,16 @@ struct ProfileNavView: View {
                     Rectangle()
                         .fill(.black800)
                         .frame(width: 250, height: .infinity)
-                        .shadow(color: .blue400.opacity(1), radius: 5, x: 0, y: 3)
+                        .shadow(color: .blue300, radius: 12, x: 0, y: 3)
                     
                     VStack {
                         Image(systemName: "person.crop.circle.fill")
                             .resizable()
                             .frame(width: 70, height: 70)
                             .padding(.bottom, 30)
-                        Text("\(Auth.auth().currentUser?.email ?? "No user") habits")
+                        Text("\(Auth.auth().currentUser?.email ?? "No user")")
+                            .font(.title3)
+                            .bold()
                         
     //                    ForEach(NavigationDrawerRowType.allCases, id: \.self) { row in
     //                        RowView(isSelected: selectedNavigationItem == row.rawValue, imageName: row.iconName, title: row.title) {
@@ -42,11 +44,67 @@ struct ProfileNavView: View {
     //                            isDrawerOpen.toggle()
     //                        }
     //                    }
-                        VStack (alignment: .leading) {
-                            Text("Navigations goes here")
-                            Text("New Navigation")
-                        }
                         Spacer()
+                            .frame(height:40)
+                        VStack (alignment: .leading) {
+                            Button {
+                               
+                            } label: {
+                                Image(systemName: "brain.head.profile")
+                                Spacer()
+                                    .frame(width: 15)
+                                Text("Profile")
+                                    .bold()
+                                Spacer()
+                            }
+                            .padding()
+                            
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "book")
+                                Spacer()
+                                    .frame(width:15)
+                                Text("Your Habits")
+                                    .bold()
+                                Spacer()
+                            }
+                            .padding()
+                            
+                            Button {
+                                
+                            } label: {
+                                Image(systemName: "pencil")
+                                Spacer()
+                                    .frame(width:15)
+                                Text("Create a Habit")
+                                    .bold()
+                                Spacer()
+                            }
+                            .padding()
+                        }
+                        
+                        Spacer()
+                        
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "gearshape.fill")
+                            Spacer()
+                                .frame(width: 15)
+                            Text("Sign out")
+                                .bold()
+                                .font(.title3)
+                            Spacer()
+                        }
+                        .padding(30)
+                        .background(.black)
+                        .overlay {
+                            Rectangle()
+                                .frame(height: 1)
+                                .foregroundStyle(.white.opacity(0.2))
+                                .frame(maxHeight: .infinity, alignment: .top)
+                        }
                     }
                     .padding(.top, 100)
                     .frame(width: 250)
