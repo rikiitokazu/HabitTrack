@@ -19,58 +19,64 @@ struct CreateHabitView: View {
     @Environment(\.dismiss) private var dismiss
     var body: some View {
         VStack {
-            GPTPromptView()
-                .overlay {
-                    Rectangle()
-                        .frame(height: 1)
-                        .foregroundStyle(.black400)
-                        .frame(maxHeight: .infinity, alignment: .bottom)
+            
+            VStack {
+                VStack (alignment: .leading, spacing: 0) {
+                    Text("Habit Name:")
+                        .font(.title3)
+                        .bold()
+                        .foregroundStyle(.white)
+                        .padding(.bottom, 4)
+                    TextField("Enter a habit", text: $habit.habitName)
+                        .textFieldStyle(.roundedBorder)
+                        .listRowSeparator(.hidden)
                 }
-            VStack (alignment: .leading, spacing: 0) {
-                Text("Habit Name:")
-                    .font(.title3)
-                    .bold()
-                    .foregroundStyle(.white)
-                    .padding(.bottom, 4)
-                TextField("Enter a habit", text: $habit.habitName)
-                    .textFieldStyle(.roundedBorder)
-                    .listRowSeparator(.hidden)
-            }
-            .padding()
-            HStack {
-                Text("Frequency (per/day)")
-                    .foregroundStyle(.white)
-                    .font(.title3)
-                    .bold()
-                Spacer()
-                Picker("", selection: $frequency) {
-                    ForEach(FrequencyAmount.allCases, id: \.self) { num in
-                        Text("\(num.rawValue)")
-                            .foregroundStyle(.white)
+                .padding()
+                HStack {
+                    Text("Frequency (per/day)")
+                        .foregroundStyle(.white)
+                        .font(.title3)
+                        .bold()
+                    Spacer()
+                    Picker("", selection: $frequency) {
+                        ForEach(FrequencyAmount.allCases, id: \.self) { num in
+                            Text("\(num.rawValue)")
+                                .foregroundStyle(.white)
+                        }
                     }
                 }
-            }
-            .padding()
-            VStack (alignment: .leading, spacing: 0) {
-                Text("Notes:")
+                .padding()
+                VStack (alignment: .leading, spacing: 0) {
+                    Text("Notes:")
+                        .font(.title3)
+                        .bold()
+                        .foregroundStyle(.white)
+                        .padding(.bottom, 4)
+                    
+                    
+                    TextField("Add a description/notes...", text: $habit.description)
+                        .textFieldStyle(.roundedBorder)
+                        .listRowSeparator(.hidden)
+                }
+                .padding()
+                
+                Toggle("Set Reminder\(frequency == .one ? "" : "s"):", isOn: $habit.reminderIsOn)
+                    .foregroundStyle(.white)
                     .font(.title3)
                     .bold()
-                    .foregroundStyle(.white)
-                    .padding(.bottom, 4)
-                    
-                
-                TextField("Add a description/notes...", text: $habit.description)
-                    .textFieldStyle(.roundedBorder)
                     .listRowSeparator(.hidden)
+                    .padding()
             }
-            .padding()
+            .overlay {
+                Rectangle()
+                    .frame(height: 1)
+                    .foregroundStyle(.black500)
+                    .frame(maxHeight: .infinity, alignment: .bottom)
+                    .padding([.top, .leading, .trailing])
+            }
             
-            Toggle("Set Reminder\(frequency == .one ? "" : "s"):", isOn: $habit.reminderIsOn)
-                .foregroundStyle(.white)
-                .font(.title3)
-                .bold()
-                .listRowSeparator(.hidden)
-                .padding()
+            
+            GPTPromptView()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.black800))

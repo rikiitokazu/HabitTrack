@@ -10,6 +10,7 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class User: Identifiable, Codable {
+    
     @DocumentID var id: String?
     var userId: String
     var lastLogin: Date

@@ -17,7 +17,8 @@ struct MainView: View {
     @State private var isProfileDrawerOpen = false
     @State private var showToDo = false
     var body: some View {
-        NavigationView {
+        // !Changed from NavigationView to Group
+        Group {
             ZStack {
                 VStack (spacing: 0){
                     header
@@ -26,8 +27,10 @@ struct MainView: View {
                                 .frame(height: 1)
                                 .foregroundStyle(.black600)
                                 .frame(maxHeight: .infinity, alignment: .bottom)
+                                .padding(.top, 30)
                             
                         }
+
                     
                     if showToDo {
                         NavigationStack {
@@ -129,8 +132,8 @@ extension MainView {
                 
                 
             }
-            .padding([.trailing, .leading, .bottom])
-            .padding(.top, 10)
+            .padding(.bottom)
+            
             
             HStack {
                 Button {
@@ -138,7 +141,6 @@ extension MainView {
                     showToDo = true
                 } label: {
                     Text("Your Habits")
-                        .font(.title3)
                         .foregroundStyle(showToDo ? .white : .black100)
                         .overlay {
                             Rectangle()
@@ -157,7 +159,6 @@ extension MainView {
                     showToDo = false
                 } label: {
                     Text("Discovery")
-                        .font(.title3)
                         .foregroundStyle(showToDo ? .black100 : .white)
                         .overlay {
                             Rectangle()
@@ -169,11 +170,14 @@ extension MainView {
                 }
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: 100)
+        .frame(maxWidth: .infinity, alignment: .top)
+        .padding()
         .background(.black700)
     }
 }
 
 #Preview {
-    MainView()
+    NavigationStack {
+        MainView()
+    }
 }

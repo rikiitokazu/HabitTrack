@@ -11,19 +11,16 @@ import FirebaseAuth
 import FirebaseFirestore
 
 
-func refreshUserHabits(userId: String) {
-    // Get all the habits for the current user
+func refreshUserHabits(userId: String?) {
     @FirestoreQuery(collectionPath: "habits",
-                    predicates: [.isEqualTo("userId", userId)]) var habits: [Habit]
+                    predicates: [.isEqualTo("userId", userId ?? "")]) var habits: [Habit]
     @FirestoreQuery(collectionPath: "users",
-                    predicates: [.isEqualTo("userId", userId)]) var users: [User]
+                    predicates: [.isEqualTo("userId", userId ?? "")]) var users: [User]
+
     guard let user = users.first else {
-        print("ERROR")
-        print(userId)
-        print(users)
+        print("can't do users.first")
         return
     }
-
     if isSameDate(as: user.lastLogin) {
         print("---same date, no need to refresh")
         return

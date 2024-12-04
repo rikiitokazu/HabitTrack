@@ -52,6 +52,12 @@ struct DiscoveryView: View {
                     // await creatures.loadNextIfNeeed(creature: creature)
                 }
                 .listRowBackground(Color(.black700))
+                .overlay {
+                    Rectangle()
+                        .frame(height: 1)
+                        .foregroundStyle(Color(.black500))
+                        .frame(maxHeight: .infinity, alignment: .bottom)
+                }
             }
             
             

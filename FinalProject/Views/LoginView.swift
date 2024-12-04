@@ -8,9 +8,11 @@
 import SwiftUI
 import Firebase
 import FirebaseAuth
-
+import FirebaseFirestore
 
 struct LoginView: View {
+   
+    
     enum Field {
         case email, password
     }
@@ -21,7 +23,8 @@ struct LoginView: View {
     @State private var buttonDisabled = true
     @State private var presentMain = false
     @FocusState private var focusField: Field?
-    
+   
+    @State private var userId: String?
     
     var body: some View {
         VStack {
@@ -50,11 +53,11 @@ struct LoginView: View {
                     .focused($focusField, equals: .password)
                     .onSubmit {
                         focusField = nil
-                   }
+                    }
                     .onChange(of:password) {
                         enableButtons()
                     }
-            
+                
             }
             .textFieldStyle(.roundedBorder)
             .overlay {
@@ -64,7 +67,7 @@ struct LoginView: View {
             
             HStack {
                 Button("Sign Up") {
-                   register()
+                    register()
                 }
                 
                 Button("Log In") {
@@ -74,7 +77,7 @@ struct LoginView: View {
                 }
                 .padding(.leading)
                 
-
+                
             }
             .buttonStyle(.borderedProminent)
             .tint(.cyan)
@@ -90,13 +93,26 @@ struct LoginView: View {
             Button ("OK", role:.cancel) {}
         }
         .onAppear() {
-//            if Auth.auth().currentUser != nil {
-//                print("Log in successful")
-//                presentMain = true
-//            }
+            //            if Auth.auth().currentUser != nil {
+            //                print("Log in successful")
+            //                presentMain = true
+            //            }
         }
         .fullScreenCover(isPresented: $presentMain) {
-           MainView()
+            NavigationStack {
+                MainView()
+            }
+        }
+        .onChange(of: userId) {
+            print("-----here ")
+            print("Users: \(userId ?? "NOTHING")")
+            if userId != nil {
+                refreshUserHabits(userId: userId)
+                presentMain = true
+            }
+        }
+        .onAppear {
+            userId = nil
         }
     }
     
@@ -135,8 +151,8 @@ struct LoginView: View {
                 showingAlert = true
             } else {
                 print("Login success")
-                refreshUserHabits(userId: Auth.auth().currentUser!.uid)
-                presentMain = true
+                userId = Auth.auth().currentUser!.uid
+                
             }
         }
     }
