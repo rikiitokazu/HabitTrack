@@ -14,6 +14,13 @@ struct ProfileNavView: View {
     @Binding var isShowing: Bool
     var edgeTransition: AnyTransition = .move(edge: .leading)
     
+    
+    // FullscreenCovers
+    @State private var showProfileView = false
+    @State private var showAllHabits = false
+    @State private var showCreateHabit = false
+    
+    @Environment(\.dismiss) private var dismiss
     var body: some View {
         ZStack(alignment: .leading) {
             if (isShowing) {
@@ -87,7 +94,13 @@ struct ProfileNavView: View {
                         Spacer()
                         
                         Button {
-                            
+                            do {
+                                try Auth.auth().signOut()
+                                print("Log out successful")
+                                dismiss()
+                            } catch {
+                                print("ERROR: could not sign out")
+                            }
                         } label: {
                             Image(systemName: "gearshape.fill")
                             Spacer()

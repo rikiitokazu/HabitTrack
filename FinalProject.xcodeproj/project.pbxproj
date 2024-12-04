@@ -14,6 +14,10 @@
 		3A44648F2CFE6CC800394465 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A44648E2CFE6CC800394465 /* User.swift */; };
 		3A4464912CFE6F1800394465 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4464902CFE6F1800394465 /* UserViewModel.swift */; };
 		3A4464A82CFF9E8C00394465 /* ProfileNavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4464A72CFF9E8C00394465 /* ProfileNavView.swift */; };
+		3A4464AC2CFFDFF500394465 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4464AB2CFFDFF500394465 /* ProfileView.swift */; };
+		3A4464B02CFFE87000394465 /* ChattyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4464AF2CFFE87000394465 /* ChattyViewModel.swift */; };
+		3A4464B32CFFE99600394465 /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3A4464B22CFFE99600394465 /* OpenAISwift */; };
+		3A4464B52CFFE9C900394465 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4464B42CFFE9C900394465 /* ContentView.swift */; };
 		3A8054EF2CFA908700E88821 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8054EE2CFA908700E88821 /* CountdownView.swift */; };
 		3A8055112CFADAD000E88821 /* CameraBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8055102CFADAD000E88821 /* CameraBackView.swift */; };
 		3A823EFE2CF80B4600F441F3 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823EFD2CF80B4600F441F3 /* Habit.swift */; };
@@ -44,6 +48,9 @@
 		3A44648E2CFE6CC800394465 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3A4464902CFE6F1800394465 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		3A4464A72CFF9E8C00394465 /* ProfileNavView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNavView.swift; sourceTree = "<group>"; };
+		3A4464AB2CFFDFF500394465 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		3A4464AF2CFFE87000394465 /* ChattyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattyViewModel.swift; sourceTree = "<group>"; };
+		3A4464B42CFFE9C900394465 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3A8054EE2CFA908700E88821 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownView.swift; sourceTree = "<group>"; };
 		3A8055102CFADAD000E88821 /* CameraBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraBackView.swift; sourceTree = "<group>"; };
 		3A823EFD2CF80B4600F441F3 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
@@ -69,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A4464B32CFFE99600394465 /* OpenAISwift in Frameworks */,
 				3A937FDA2CF65D000025E539 /* FirebaseAuth in Frameworks */,
 				3A937FDC2CF65D000025E539 /* FirebaseFirestore in Frameworks */,
 				3A937FDE2CF65D000025E539 /* FirebaseStorage in Frameworks */,
@@ -78,6 +86,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A4464AE2CFFE85600394465 /* Open */ = {
+			isa = PBXGroup;
+			children = (
+				3A4464AF2CFFE87000394465 /* ChattyViewModel.swift */,
+				3A4464B42CFFE9C900394465 /* ContentView.swift */,
+			);
+			path = Open;
+			sourceTree = "<group>";
+		};
 		3A8055122CFAEB5C00E88821 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
@@ -135,6 +152,7 @@
 				3A3CBC712CFBE184002A08C2 /* DiscoveryView.swift */,
 				3AA108222CFD97D200D287E6 /* MainView.swift */,
 				3A4464A72CFF9E8C00394465 /* ProfileNavView.swift */,
+				3A4464AB2CFFDFF500394465 /* ProfileView.swift */,
 				3A823F162CF8312500F441F3 /* PersonalHabitsView.swift */,
 				3A823F1C2CF8F23600F441F3 /* ToDoHabitsView.swift */,
 				3A937FD12CF656C60025E539 /* LoginView.swift */,
@@ -145,6 +163,7 @@
 		3A937FD32CF656C60025E539 /* FinalProject */ = {
 			isa = PBXGroup;
 			children = (
+				3A4464AE2CFFE85600394465 /* Open */,
 				3A937FCB2CF656C60025E539 /* Models */,
 				3A937FCE2CF656C60025E539 /* ViewModels */,
 				3A937FCF2CF656C60025E539 /* Views */,
@@ -193,6 +212,7 @@
 				3A937FD92CF65D000025E539 /* FirebaseAuth */,
 				3A937FDB2CF65D000025E539 /* FirebaseFirestore */,
 				3A937FDD2CF65D000025E539 /* FirebaseStorage */,
+				3A4464B22CFFE99600394465 /* OpenAISwift */,
 			);
 			productName = FinalProject;
 			productReference = 3ADAE8092CED8F9800407DA8 /* FinalProject.app */;
@@ -205,6 +225,9 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				KnownAssetTags = (
+					APIKEY,
+				);
 				LastSwiftUpdateCheck = 1610;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
@@ -224,6 +247,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				3A937FD82CF65D000025E539 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				3A4464B12CFFE99600394465 /* XCRemoteSwiftPackageReference "OpenAISwift" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 3ADAE80A2CED8F9800407DA8 /* Products */;
@@ -255,6 +279,7 @@
 			files = (
 				3A3CBC9A2CFC13A2002A08C2 /* HabitPhotoViewModel.swift in Sources */,
 				3AA108232CFD97D200D287E6 /* MainView.swift in Sources */,
+				3A4464B52CFFE9C900394465 /* ContentView.swift in Sources */,
 				3A3CBC702CFBDFA1002A08C2 /* HabitPhoto.swift in Sources */,
 				3AA98CAB2CFA57BD00B3A411 /* CameraProcessView.swift in Sources */,
 				3A823EFE2CF80B4600F441F3 /* Habit.swift in Sources */,
@@ -266,6 +291,7 @@
 				3A823F352CF92A0800F441F3 /* RefreshUserHabits.swift in Sources */,
 				3A823F1D2CF8F23600F441F3 /* ToDoHabitsView.swift in Sources */,
 				3A823F192CF8328300F441F3 /* HabitViewModel.swift in Sources */,
+				3A4464B02CFFE87000394465 /* ChattyViewModel.swift in Sources */,
 				3A4464912CFE6F1800394465 /* UserViewModel.swift in Sources */,
 				3AA98CA32CF995AD00B3A411 /* CameraPermission.swift in Sources */,
 				3A4464A82CFF9E8C00394465 /* ProfileNavView.swift in Sources */,
@@ -273,6 +299,7 @@
 				3A3CBC722CFBE184002A08C2 /* DiscoveryView.swift in Sources */,
 				3A823F172CF8312500F441F3 /* PersonalHabitsView.swift in Sources */,
 				3A823F022CF80E5E00F441F3 /* CreateHabitView.swift in Sources */,
+				3A4464AC2CFFDFF500394465 /* ProfileView.swift in Sources */,
 				3A44648F2CFE6CC800394465 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -422,6 +449,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = APIKEY;
 				PRODUCT_BUNDLE_IDENTIFIER = com.itokazu.FinalProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -453,6 +481,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = APIKEY;
 				PRODUCT_BUNDLE_IDENTIFIER = com.itokazu.FinalProject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -485,6 +514,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3A4464B12CFFE99600394465 /* XCRemoteSwiftPackageReference "OpenAISwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adamrushy/OpenAISwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.1;
+			};
+		};
 		3A937FD82CF65D000025E539 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -496,6 +533,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3A4464B22CFFE99600394465 /* OpenAISwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3A4464B12CFFE99600394465 /* XCRemoteSwiftPackageReference "OpenAISwift" */;
+			productName = OpenAISwift;
+		};
 		3A937FD92CF65D000025E539 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3A937FD82CF65D000025E539 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

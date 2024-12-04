@@ -13,21 +13,6 @@ import FirebaseAuth
 
 struct CreateHabitView: View {
     @State var habit: Habit
-    //    @State private var habitName = ""
-    //    @State private var frequency = 0
-    //    @State private var frequencyType: FrequencyType
-    //    @State private var notes = ""
-    //    @State private var isCompleted: Bool = false
-    //    @State private var dateCreated: Date = Date.now
-    //    @State private var completed: Int = 0
-    //    @State private var missed: Int = 0
-    //    @State private var lastCompleted: Date?
-    //    @State private var specificDays: [Date] = []
-    //    @State private var nextTime: [Date] = []
-    //    @State private var reminderIsOn: Bool = false
-    //    @State var specificTimes: [Int] = []
-    
-    //    @State private var dueDate = Date.now + 60*60*24
     @State private var dueDate = Calendar.current.date(byAdding: .day, value: 1, to: Date.now)!
     @State private var frequency: FrequencyAmount = .one
     
