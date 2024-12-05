@@ -94,7 +94,7 @@ struct CreateHabitView: View {
             }
             
             
-            GPTPromptView()
+            GPTPromptView(habitName: $habit.habitName, frequency: $frequency, notes: $habit.description)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.black800)

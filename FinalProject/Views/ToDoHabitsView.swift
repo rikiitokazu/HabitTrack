@@ -35,7 +35,8 @@ struct ToDoHabitsView: View {
                         .bold()
                         .padding(.top, 15)
                     HabitsView
-                    
+                    Spacer()
+                        .frame(height: 100)
                     VStack (alignment: .leading, spacing: 0 ){
                         Text("Completed")
                             .padding(.leading)
@@ -49,7 +50,7 @@ struct ToDoHabitsView: View {
                             .frame(height: 1)
                             .foregroundStyle(.black500)
                             .frame(maxWidth: .infinity, alignment: .top)
-                            .padding(.bottom, 50)
+                            .padding(.bottom, 35)
                     }
 
                     CompletedHabitsView

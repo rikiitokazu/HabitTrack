@@ -26,6 +26,10 @@ struct GPTPromptView: View {
     @State private var responseText: String = ""
     @State private var isLoading: Bool = false
     
+    @Binding var habitName: String
+    @Binding var frequency: FrequencyAmount
+    @Binding var notes: String
+    
     let aiService = AIService()
     
     @FocusState private var focused: Bool
@@ -47,6 +51,7 @@ struct GPTPromptView: View {
                     }
                     .autocorrectionDisabled()
                     .focused($focused)
+                    
                 Spacer()
                 AsyncButton {
                     isLoading = true
@@ -78,6 +83,15 @@ struct GPTPromptView: View {
                     .italic()
                     .opacity(isLoading ? 0.5 : 1)
                     .foregroundStyle(.white)
+                Button {
+                    applySuggestions()
+                } label: {
+                   Text("Apply AI Suggestions")
+                        .italic()
+                        .bold()
+                }
+                .opacity(responseText.isEmpty ? 0 : 1)
+                .disabled(responseText.isEmpty)
             }
             .frame(height: 140)
 
@@ -92,9 +106,42 @@ struct GPTPromptView: View {
             key = keys[0].ai
         }
     }
+    
+    private func applySuggestions() {
+        // Use regular expressions to extract parts of the string
+        let habitPattern = #"Habit:\s*(.+)"#
+        let frequencyPattern = #"Frequency:\s*(\d+)"#
+        let notesPattern = #"\(per/day\)\n(.+)"#
+
+        if let habitMatch = responseText.range(of: habitPattern, options: .regularExpression) {
+            habitName = String(responseText[habitMatch]).replacingOccurrences(of: "Habit: ", with: "")
+        }
+
+        if let frequencyMatch = responseText.range(of: frequencyPattern, options: .regularExpression),
+           let freqValue = Int(String(responseText[frequencyMatch]).replacingOccurrences(of: "Frequency: ", with: "")) {
+            switch freqValue {
+            case 1: frequency = .one
+                break
+            case 2: frequency = .two
+                break
+            case 3: frequency = .three
+                break
+            case 4: frequency = .four
+                break
+            default: frequency = .five
+            }
+        }
+
+        if let perDayRange = responseText.range(of: "(per/day)") {
+            notes = String(responseText[perDayRange.upperBound...]).trimmingCharacters(in: .whitespacesAndNewlines)
+        } else {
+            print("failure")
+        }
+    }
 }
 
+
 #Preview {
-    GPTPromptView()
+    GPTPromptView(habitName: .constant(""), frequency: .constant(.one), notes: .constant(""))
         .background(.black800)
 }
