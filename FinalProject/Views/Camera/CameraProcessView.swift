@@ -87,6 +87,12 @@ struct CameraProcessView: View {
                         await HabitPhotoViewModel.saveImage(habit: habit!, habitPhoto: newHabitPhoto, frontData: frontPhoto!, backData: backPhoto!)
                         isUploading = false
                         
+                        // update habit completedForTheDay, totalCompleted, and also lastUpdated
+                        habit?.completedForTheDay += 1
+                        habit?.totalCompleted += 1
+                        habit?.lastCompleted = Date.now
+                        saveHabit(habit: habit!)
+                        
                         uploaded = true
                     }
 
@@ -128,10 +134,14 @@ struct CameraProcessView: View {
         .onAppear {
             
         }
-
-        
-
-        
+    }
+    func saveHabit(habit: Habit) {
+        Task {
+            guard let _ = await HabitViewModel.saveHabit(habit: habit) else {
+                print("error: failed to save habit")
+                return
+            }
+        }
     }
 }
 extension View {

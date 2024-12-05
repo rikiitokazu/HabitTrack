@@ -16,7 +16,6 @@ struct CameraView: View {
     
     @State private var countdownFinished: Bool = false
     @State private var VM = CameraViewModel()
-
     var body: some View {
         Group {
             ZStack {
