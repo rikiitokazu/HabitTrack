@@ -113,13 +113,25 @@ extension MainView {
     private var header: some View {
         VStack (spacing: 0) {
             HStack (alignment: .center, spacing: 0){
-                Image(systemName: "person.crop.circle.fill")
-                    .resizable()
-                    .frame(width: 30, height: 30)
-                    .foregroundStyle(.white)
-                    .onTapGesture {
-                        isProfileDrawerOpen = !isProfileDrawerOpen
+                if !users.isEmpty && users[0].profilePic != nil {
+                    let url = URL(string: users[0].profilePic!)
+                    AsyncImage(url: url) { image in
+                        image
+                            .resizable()
+                            .clipShape(Circle())
+                            .frame(width: 70, height: 70)
+                    } placeholder: {
+                        ProgressView()
                     }
+                } else {
+                    Image(systemName: "person.crop.circle.fill")
+                        .resizable()
+                        .frame(width: 30, height: 30)
+                        .foregroundStyle(.white)
+                        .onTapGesture {
+                            isProfileDrawerOpen = !isProfileDrawerOpen
+                        }
+                }
                 
                 
                 Spacer()
