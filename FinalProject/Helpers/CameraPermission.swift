@@ -39,7 +39,7 @@ enum CameraPermission {
                    return nil
                 case .restricted:
                    return nil
-                case .denied:
+                case .denied: 
                     return .unauthorized
                 case .authorized:
                     return nil

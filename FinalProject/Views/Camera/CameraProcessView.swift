@@ -54,7 +54,6 @@ struct CameraProcessView: View {
             }
             // TODO: onAppear -> showFrontCamera = true?
             // if false,  
-            .disabled(backPhoto != nil)
             .padding()
             
             Spacer()
@@ -70,12 +69,12 @@ struct CameraProcessView: View {
                // upload photo
                 let newHabitPhoto = HabitPhoto(habitId: "\(habit?.id ?? "")")
                 Task {
-                    await HabitPhotoViewModel.saveImage(habit: habit!, photo: newHabitPhoto, data: frontPhoto!, display: .front)
+//                    await HabitPhotoViewModel.saveImage(habit: habit!, photo: newHabitPhoto, data: frontPhoto!, data: backPhoto!)
                     
                     
-                    await HabitPhotoViewModel.saveImage(habit: habit!, photo: newHabitPhoto, data: backPhoto!, display: .back)
+//                    await HabitPhotoViewModel.saveImage(habit: habit!, photo: newHabitPhoto, data: backPhoto!, display: .back)
                     
-                    uploaded = true
+//                    uploaded = true
                 }
 
                 

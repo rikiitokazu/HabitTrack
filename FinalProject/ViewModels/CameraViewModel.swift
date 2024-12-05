@@ -14,28 +14,44 @@ import SwiftUI
 @Observable
 class CameraViewModel: NSObject {
     
-    enum PhotoCaptureState {
-        case notStarted
-        case processing
-        case finished(Data)
+    enum PhotoCaptureFrontState {
+        case frontNotStarted
+        case frontProcessing
+        case frontFinished(Data)
+    }
+    enum PhotoCaptureBackState {
+        case backNotStarted
+        case backProcessing
+        case backFinished(Data)
     }
     
-    var session = AVCaptureSession()
-    var preview = AVCaptureVideoPreviewLayer()
-    var output = AVCapturePhotoOutput()
+    var session = AVCaptureMultiCamSession()
+    var frontOutput = AVCapturePhotoOutput()
+    var backOutput = AVCapturePhotoOutput()
     
-    var photoData: Data? {
-        if case .finished(let data) = photoCaptureState {
+    var frontData: Data? {
+        if case .frontFinished(let data) = photoCaptureFrontState {
+            return data
+        }
+        return nil
+    }
+    
+    var backData: Data? {
+        if case .backFinished(let data) = photoCaptureBackState {
             return data
         }
         return nil
     }
     
     var hasPhoto: Bool {
-        photoData != nil
+        frontData != nil
     }
     
-    private(set) var photoCaptureState: PhotoCaptureState = .notStarted
+    private(set) var photoCaptureFrontState: PhotoCaptureFrontState = .frontNotStarted
+    private(set) var photoCaptureBackState: PhotoCaptureBackState = .backNotStarted
+    
+    private var finalFrontData: Data?
+    private var finalBackData: Data?
     
     func requestAcccessAndSetup(position: AVCaptureDevice.Position) {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -45,30 +61,39 @@ class CameraViewModel: NSObject {
             }
         case .authorized:
             self.setup(position: position)
-        // more cases
+            // more cases
         default:
-           print("other status")
+            print("other status")
             
         }
     }
     
     private func setup(position: AVCaptureDevice.Position) {
         session.beginConfiguration()
-        session.sessionPreset = AVCaptureSession.Preset.photo
         
         do {
-            guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: position) else {
+            guard let deviceFront = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) else {
                 return
             }
-            let input = try AVCaptureDeviceInput(device: device)
-            guard session.canAddInput(input) else { return }
-            session.addInput(input)
+            let frontInput = try AVCaptureDeviceInput(device: deviceFront)
+            guard session.canAddInput(frontInput) else { return }
+            session.addInput(frontInput)
             
-            guard session.canAddOutput(output) else { return }
-            session.addOutput(output)
+            guard session.canAddOutput(frontOutput) else { return }
+            session.addOutput(frontOutput)
+            
+            guard let deviceBack = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
+                return
+            }
+            let backInput = try AVCaptureDeviceInput(device: deviceBack)
+            guard session.canAddInput(backInput) else { return }
+            session.addInput(backInput)
+            
+            guard session.canAddOutput(backOutput) else { return }
+            session.addOutput(backOutput)
             
             session.commitConfiguration()
-
+            
             
             Task(priority: .background) {
                 self.session.startRunning()
@@ -80,41 +105,51 @@ class CameraViewModel: NSObject {
     
     
     func takePhoto() {
-        guard case .notStarted = photoCaptureState else { return }
-        output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+        guard case .frontNotStarted = photoCaptureFrontState else { return }
+        guard case .backNotStarted = photoCaptureBackState else { return }
+        frontOutput.capturePhoto(with: AVCapturePhotoSettings(),  delegate: self)
+        backOutput.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
         
         withAnimation {
-            self.photoCaptureState = .processing
+            self.photoCaptureFrontState = .frontProcessing
+            self.photoCaptureBackState = .backProcessing
         }
     }
     
-    func retakePhoto() {
-        Task(priority: .background) {
-            self.session.startRunning()
-            await MainActor.run {
-                self.photoCaptureState = .notStarted
-            }
-        }
-    }
 }
 
-extension CameraViewModel: AVCapturePhotoCaptureDelegate {
+extension CameraViewModel: AVCapturePhotoCaptureDelegate{
+
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let error {
             print(error.localizedDescription)
         }
         
-        guard let imageData = photo.fileDataRepresentation() else { return }
+        guard let imageData = photo.fileDataRepresentation() else {
+            print("error here")
+            return
+        }
+        
+        // the photoOutput functions runs twice before the Task is ran
+        // I believe the frontData is passed in first as it is the first device. 
+        if finalFrontData == nil {
+            finalFrontData = imageData
+        } else {
+            finalBackData = imageData
+        }
+        
         
         Task(priority: .background) {
             self.session.stopRunning()
             await MainActor.run {
                 withAnimation {
-                    self.photoCaptureState = .finished(imageData)
-                    
+                    self.photoCaptureFrontState = .frontFinished(finalFrontData!)
+                    self.photoCaptureBackState = .backFinished(finalBackData!)
+
                 }
             }
         }
     }
+    
 }

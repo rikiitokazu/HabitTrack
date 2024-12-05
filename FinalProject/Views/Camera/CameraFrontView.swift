@@ -36,12 +36,13 @@ struct CameraFrontView: View {
                 // TODO: wait until the photoData has loaded. if its not, maybe
                 // just do a ProgressView()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                    if VM.photoData == nil {
+                    if VM.frontData == nil || VM.backData == nil {
                         print("photo has not finished uploading")
                         return
                     }
-                    showBackView = true
-                    frontPhoto = VM.photoData
+                    showCamera = false
+                    frontPhoto = VM.frontData
+                    backPhoto = VM.backData
                 }
             }
         }

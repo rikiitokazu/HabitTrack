@@ -31,12 +31,12 @@ struct CameraBackView: View {
                 // TODO: refactor this part
                 // Wait 1 seconds, then set the VM.photo to the photo
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                    if VM.photoData == nil {
+                    if VM.frontData == nil {
                         print("photo has not finished uploading")
                         return
                     }
                     showCamera = false
-                    backPhoto = VM.photoData
+                    backPhoto = VM.frontData
                 }
             }
         }
