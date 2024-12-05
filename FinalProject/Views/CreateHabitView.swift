@@ -23,7 +23,7 @@ struct CreateHabitView: View {
             VStack {
                 VStack (alignment: .leading, spacing: 0) {
                     Text("Habit Name:")
-                        .font(.title3)
+                        .font(.subheadline)
                         .bold()
                         .foregroundStyle(.white)
                         .padding(.bottom, 4)
@@ -35,7 +35,7 @@ struct CreateHabitView: View {
                 HStack {
                     Text("Frequency (per/day)")
                         .foregroundStyle(.white)
-                        .font(.title3)
+                        .font(.subheadline)
                         .bold()
                     Spacer()
                     Picker("", selection: $frequency) {
@@ -48,7 +48,7 @@ struct CreateHabitView: View {
                 .padding()
                 VStack (alignment: .leading, spacing: 0) {
                     Text("Notes:")
-                        .font(.title3)
+                        .font(.subheadline)
                         .bold()
                         .foregroundStyle(.white)
                         .padding(.bottom, 4)
@@ -60,12 +60,12 @@ struct CreateHabitView: View {
                 }
                 .padding()
                 
-                Toggle("Set Reminder\(frequency == .one ? "" : "s"):", isOn: $habit.reminderIsOn)
-                    .foregroundStyle(.white)
-                    .font(.title3)
-                    .bold()
-                    .listRowSeparator(.hidden)
-                    .padding()
+//                Toggle("Set Reminder\(frequency == .one ? "" : "s"):", isOn: $habit.reminderIsOn)
+//                    .foregroundStyle(.white)
+//                    .font(.subheadline)
+//                    .bold()
+//                    .listRowSeparator(.hidden)
+//                    .padding()
             }
             .overlay {
                 Rectangle()
