@@ -22,84 +22,113 @@ struct CameraProcessView: View {
     @State private var cameraDisplay: AVCaptureDevice.Position = .front
     
     @State private var uploaded = false
+    @State private var isUploading = false
     
     @Environment(\.dismiss) var dismiss
     var body: some View {
-        VStack {
-            HStack {
-                if let frontPhoto, let uiImage = UIImage(data: frontPhoto) {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .scaledToFit()
-                } else {
-                    Image(systemName: "photo")
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundStyle(.gray)
+        ZStack {
+            VStack {
+                VStack  {
+                    HStack {
+                        Text(habit?.habitName ?? "Habit Name")
+                            .foregroundStyle(.white)
+                            .font(.headline)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.5)
+                        Text("(\(habit?.frequency.rawValue ?? 2))")
+                            .foregroundStyle(.white)
+                            .font(.headline)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.5)
+                    }
+                    HStack {
+                        if let frontPhoto, let uiImage = UIImage(data: frontPhoto) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFit()
+                        } else {
+                            Image(systemName: "photo")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundStyle(.gray)
+                        }
+                        if let backPhoto, let uiImage2 = UIImage(data: backPhoto) {
+                            Image(uiImage: uiImage2)
+                                .resizable()
+                                .scaledToFit()
+                        } else {
+                            Image(systemName: "photo")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundStyle(.gray)
+                        }
+                    }
                 }
-                if let backPhoto, let uiImage2 = UIImage(data: backPhoto) {
-                    Image(uiImage: uiImage2)
-                        .resizable()
-                        .scaledToFit()
-                } else {
-                    Image(systemName: "photo")
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundStyle(.gray)
+                Button("Document") {
+                    showFrontCamera = true
+                }
+                .padding()
+                
+                Spacer()
+                    .frame(height: 60)
+                
+                TextField("Caption...", text: $photoDescription)
+                    .textFieldStyle(.roundedBorder)
+                    .padding(.vertical)
+                    .listRowSeparator(.hidden)
+                
+                Spacer()
+                
+                Button {
+                   // upload photo
+                    let newHabitPhoto = HabitPhoto(habitId: "\(habit?.id ?? "")", caption: photoDescription)
+                    Task {
+                        isUploading = true
+                        await HabitPhotoViewModel.saveImage(habit: habit!, habitPhoto: newHabitPhoto, frontData: frontPhoto!, backData: backPhoto!)
+                        isUploading = false
+                        
+                        uploaded = true
+                    }
+
+                    
+                } label: {
+                    HStack {
+                        Image(systemName: "square.and.arrow.up")
+                            .foregroundStyle(.white)
+                        Text("Upload")
+                            .foregroundStyle(.white)
+                    }
+                    
+                }
+                .disabled(frontPhoto == nil || backPhoto == nil || photoDescription.isEmpty)
+                
+                Spacer()
+            }
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Back") {
+                        dismiss()
+                    }
                 }
             }
-            Button("Document now") {
-                // TODO: cancel the process midway
-                showFrontCamera = true
+            .fullScreenFrontCamera(isPresented: $showFrontCamera, cameraDisplay: $cameraDisplay, frontPhoto: $frontPhoto, backPhoto: $backPhoto)
+            .fullScreenCover(isPresented: $uploaded) {
+                MainView()
             }
-            // TODO: onAppear -> showFrontCamera = true?
-            // if false,  
             .padding()
             
-            Spacer()
-            
-            TextField("Description...", text: $photoDescription)
-                .textFieldStyle(.roundedBorder)
-                .padding(.vertical)
-                .listRowSeparator(.hidden)
-            
-            Spacer()
-            
-            Button {
-               // upload photo
-                let newHabitPhoto = HabitPhoto(habitId: "\(habit?.id ?? "")", caption: photoDescription)
-                Task {
-                    await HabitPhotoViewModel.saveImage(habit: habit!, habitPhoto: newHabitPhoto, frontData: frontPhoto!, backData: backPhoto!)
-                    
-                    
-                    uploaded = true
-                }
+            if isUploading {
+                ProgressView()
+                    .tint(.blue)
+                    .scaleEffect(2)
+            }
+        }
+        .background(.black800)
 
-                
-            } label: {
-                HStack {
-                    Image(systemName: "square.and.arrow.up")
-                    Text("Upload")
-                }
-                
-            }
-            .disabled(frontPhoto == nil || backPhoto == nil || photoDescription.isEmpty)
-            
-            Spacer()
-        }
-        .navigationBarBackButtonHidden()
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button("Back") {
-                    dismiss()
-                }
-            }
-        }
-        .fullScreenFrontCamera(isPresented: $showFrontCamera, cameraDisplay: $cameraDisplay, frontPhoto: $frontPhoto, backPhoto: $backPhoto)
-        .fullScreenCover(isPresented: $uploaded) {
-            MainView()
-        }
-        .padding()
+        
+
+        
     }
 }
 extension View {
@@ -113,6 +142,6 @@ extension View {
 
 #Preview {
     NavigationStack {
-        CameraProcessView(habit: Habit())
+        CameraProcessView(habit: Habit(habitName: "Reading more", frequency: .three))
     }
 }
