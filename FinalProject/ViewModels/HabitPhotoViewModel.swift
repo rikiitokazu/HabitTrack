@@ -15,54 +15,56 @@ import AVFoundation
 @Observable
 class HabitPhotoViewModel {
 
-   // Call this twice for front and back on the same HabitPhoto model
-    static func saveImage(habit:Habit, frontPhoto: HabitPhoto, data: Data, backPhotoData: Data) async  {
-//        guard let id = habit.id else {
-//            print("should never have been called without a valid spot.id")
-//            return
-//        }
+    static func saveImage(habit:Habit, habitPhoto: HabitPhoto, frontData: Data, backData: Data) async  {
+        guard let _ = habit.id else {
+            print("should never have been called without a valid habit.id")
+            return
+        }
         
-//
-//        let storage = Storage.storage().reference()
-//        let metadata = StorageMetadata()
-//        if photo.id == nil {
-//            photo.id = UUID().uuidString
-//        }
-//        let _ = UUID().uuidString
-//        metadata.contentType = "image/jpeg"
-//        let path = "\("dummy")/\(UUID().uuidString)"
-//        
-//        do {
-//            let storageref = storage.child(path)
-//            let _ = try await storageref.putDataAsync(data, metadata: metadata)
-//            print("returned data")
-//            
-//            guard let url = try? await storageref.downloadURL() else {
-//                print("could not get downloadurl")
-//                return
-//            }
-//            if display == .front {
-//                photo.frontImageURLString = url.absoluteString
-//            } else {
-//                photo.backImageURLString = url.absoluteString
-//            }
-//            print(url.absoluteString)
-//            print("photo image url string")
-//            
-//            let db = Firestore.firestore()
-//            do {
-//                if let id = photo.id {
-//                    try db.collection("photos").document(id).setData(from:photo)
-//                } else {
-//                    print("--- failed to unwrap photo.id")
-//                    return
-//                }
-//                
-//            } catch {
-//                print("ERROR could not upload photo in url")
-//            }
-//        } catch {
-//            print("error saving photo to storage \(error.localizedDescription)")
-//        }
+
+        let storage = Storage.storage().reference()
+        let metadata = StorageMetadata()
+        if habitPhoto.id == nil {
+            habitPhoto.id = UUID().uuidString
+        }
+        let _ = UUID().uuidString
+        metadata.contentType = "image/jpeg"
+        
+        do {
+            let storagerefFront = storage.child("\("dummy")/\(UUID().uuidString)")
+            let _ = try await storagerefFront.putDataAsync(frontData, metadata: metadata)
+            
+            guard let urlFront = try? await storagerefFront.downloadURL() else {
+                print("could not get downloadurl for front data")
+                return
+            }
+            habitPhoto.frontImageURLString = urlFront.absoluteString
+            
+            
+            let storagerefBack = storage.child("\("dummy")/\(UUID().uuidString)")
+            let _ = try await storagerefBack.putDataAsync(backData, metadata: metadata)
+            
+            guard let urlBack = try? await storagerefBack.downloadURL() else {
+                print("could not get downloadurl for back data")
+                return
+            }
+            habitPhoto.backImageURLString = urlBack.absoluteString
+            
+            
+            let db = Firestore.firestore()
+            do {
+                if let id = habitPhoto.id {
+                    try db.collection("photos").document(id).setData(from:habitPhoto)
+                } else {
+                    print("--- failed to unwrap photo.id")
+                    return
+                }
+                
+            } catch {
+                print("ERROR could not upload photo in url")
+            }
+        } catch {
+            print("error saving photo to storage \(error.localizedDescription)")
+        }
     }
 }

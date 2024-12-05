@@ -33,8 +33,8 @@ struct ProfileNavView: View {
                 ZStack{
                     Rectangle()
                         .fill(.black800)
-                        .frame(width: 250, height: .infinity)
                         .shadow(color: .blue300, radius: 12, x: 0, y: 3)
+                        .frame(width: 250)
                     
                     VStack {
                         Image(systemName: "person.crop.circle.fill")

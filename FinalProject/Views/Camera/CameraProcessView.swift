@@ -67,14 +67,12 @@ struct CameraProcessView: View {
             
             Button {
                // upload photo
-                let newHabitPhoto = HabitPhoto(habitId: "\(habit?.id ?? "")")
+                let newHabitPhoto = HabitPhoto(habitId: "\(habit?.id ?? "")", caption: photoDescription)
                 Task {
-//                    await HabitPhotoViewModel.saveImage(habit: habit!, photo: newHabitPhoto, data: frontPhoto!, data: backPhoto!)
+                    await HabitPhotoViewModel.saveImage(habit: habit!, habitPhoto: newHabitPhoto, frontData: frontPhoto!, backData: backPhoto!)
                     
                     
-//                    await HabitPhotoViewModel.saveImage(habit: habit!, photo: newHabitPhoto, data: backPhoto!, display: .back)
-                    
-//                    uploaded = true
+                    uploaded = true
                 }
 
                 

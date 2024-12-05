@@ -19,10 +19,11 @@ struct CountdownView: View {
     var body: some View {
         VStack {
             Spacer()
-            Text(variation == .front ? "Smile!" : "Take a photo of your habit!")
-                .font(.system(size: 40))
+            Text("Smile & Point at your habit!")
+                .font(.system(size: 30))
                 .lineLimit(1)
                 .minimumScaleFactor(0.5)
+                .padding()
             Spacer()
             Text("\(countdown)")
                 .font(.system(size: 160))
@@ -31,12 +32,11 @@ struct CountdownView: View {
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity) // Expand VStack to take full screen
-        .background(variation == .front ? Color.blue : Color.black500) // Apply background color
+        .background(.blue400) // Apply background color
         .ignoresSafeArea()
         .onAppear {
             startCountdown()
         }
-        .padding()
     }
     
     private func startCountdown() {
