@@ -13,7 +13,7 @@ import FirebaseFirestore
 struct ProfileNavView: View {
     @Binding var isShowing: Bool
     var edgeTransition: AnyTransition = .move(edge: .leading)
-    
+    var user: User
     
     // FullscreenCovers
     @State private var showProfileView = false
@@ -41,9 +41,13 @@ struct ProfileNavView: View {
                             .resizable()
                             .frame(width: 70, height: 70)
                             .padding(.bottom, 30)
-                        Text("\(Auth.auth().currentUser?.email ?? "No user")")
+                        Text("\(user.name)")
                             .font(.title3)
                             .bold()
+
+//                        Text("\(Auth.auth().currentUser?.email ?? "No user")")
+//                            .font(.title2k)
+//                            .bold()
                         
     //                    ForEach(NavigationDrawerRowType.allCases, id: \.self) { row in
     //                        RowView(isSelected: selectedNavigationItem == row.rawValue, imageName: row.iconName, title: row.title) {
@@ -55,7 +59,7 @@ struct ProfileNavView: View {
                             .frame(height:40)
                         VStack (alignment: .leading) {
                             Button {
-                               
+                              showProfileView = true
                             } label: {
                                 Image(systemName: "brain.head.profile")
                                 Spacer()
@@ -67,7 +71,7 @@ struct ProfileNavView: View {
                             .padding()
                             
                             Button {
-                                
+                               showAllHabits = true
                             } label: {
                                 Image(systemName: "book")
                                 Spacer()
@@ -79,7 +83,7 @@ struct ProfileNavView: View {
                             .padding()
                             
                             Button {
-                                
+                                showCreateHabit = true
                             } label: {
                                 Image(systemName: "pencil")
                                 Spacer()
@@ -129,9 +133,24 @@ struct ProfileNavView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         .ignoresSafeArea()
         .animation(.easeInOut(duration: 0.2), value: isShowing)
+        .fullScreenCover(isPresented: $showProfileView) {
+            NavigationStack {
+                ProfileView(user: user)
+            }
+        }
+        .fullScreenCover(isPresented: $showAllHabits) {
+            NavigationStack {
+                PersonalHabitsView(user: user)
+            }
+        }
+        .fullScreenCover(isPresented: $showCreateHabit) {
+            NavigationStack {
+                CreateHabitView(habit: Habit())
+            }
+        }
     }
 }
 
 #Preview {
-    ProfileNavView(isShowing: .constant(true))
+    ProfileNavView(isShowing: .constant(true), user: User())
 }

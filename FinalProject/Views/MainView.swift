@@ -7,8 +7,14 @@
 
 import SwiftUI
 import PhotosUI
+import Firebase
+import FirebaseAuth
+import FirebaseFirestore
 
 struct MainView: View {
+    @FirestoreQuery(collectionPath: "users",
+                    predicates: [.isEqualTo("userId", Auth.auth().currentUser?.uid ?? "")]) var users: [User]
+
     @State private var dummyHabitPhotos = ["photo", "camera", "pencil", "pencil.circle"]
     @State private var imageIsLoading = false
     @State private var data = Data()
@@ -16,6 +22,8 @@ struct MainView: View {
     @State private var showCreateHabitSheet = false
     @State private var isProfileDrawerOpen = false
     @State private var showToDo = false
+    
+    
     var body: some View {
         // !Changed from NavigationView to Group
         Group {
@@ -50,7 +58,7 @@ struct MainView: View {
                         }
                 }
                 
-                ProfileNavView(isShowing: $isProfileDrawerOpen)
+                ProfileNavView(isShowing: $isProfileDrawerOpen, user: users.isEmpty ? User() : users[0])
                 
                 if !showToDo && !isProfileDrawerOpen {
                     VStack {

@@ -18,8 +18,9 @@ class User: Identifiable, Codable {
     var lastLogin: Date
     var totalMissed: Int
     var totalAccomplished: Int
+    var profilePic: String?
     
-    init(id: String? = nil, email: String = "", name: String = "", userId: String = (Auth.auth().currentUser?.uid ?? ""), lastLogin: Date = Date.now, totalMissed: Int = 0, totalAccomplished: Int = 0) {
+    init(id: String? = nil, email: String = "", name: String = "", userId: String = (Auth.auth().currentUser?.uid ?? ""), lastLogin: Date = Date.now, totalMissed: Int = 0, totalAccomplished: Int = 0, profilePic: String? = nil) {
         self.id = id
         self.email = email
         self.name = name
@@ -27,5 +28,6 @@ class User: Identifiable, Codable {
         self.lastLogin = lastLogin
         self.totalMissed = totalMissed
         self.totalAccomplished = totalAccomplished
+        self.profilePic = profilePic
     }
 }

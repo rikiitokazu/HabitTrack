@@ -11,32 +11,41 @@ import FirebaseAuth
 import FirebaseFirestore
 
 struct PersonalHabitsView: View {
+    
     @FirestoreQuery(collectionPath: "habits",
                     predicates: [.isEqualTo("userId", Auth.auth().currentUser?.uid ?? "")]) var habits: [Habit]
-//    @State private var sheetIsPresented = false
+    //    @State private var sheetIsPresented = false
+    var user: User
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        NavigationStack {
-            List(habits) { habit in
-                NavigationLink {
-                   CreateHabitView(habit: habit)
-                } label: {
-                    Text(habit.habitName)
-                }
-                .swipeActions {
-                    Button("Delete", role: .destructive) {
-                        HabitViewModel.deleteHabit(habit: habit)
-                    }
+        List(habits) { habit in
+            NavigationLink {
+                CreateHabitView(habit: habit)
+            } label: {
+                Text(habit.habitName)
+            }
+            .swipeActions {
+                Button("Delete", role: .destructive) {
+                    HabitViewModel.deleteHabit(habit: habit)
                 }
             }
-            .listStyle(.plain)
-            .navigationTitle("\(Auth.auth().currentUser?.email ?? "No user") habits")
+        }
+        .listStyle(.plain)
+        .navigationTitle("\(user.name != "" ? user.name : "no name") habits")
+        .toolbar {
+            ToolbarItem (placement: .topBarLeading) {
+                Button("Back") {
+                    dismiss()
+                }
+            }
         }
     }
     
 }
 
 #Preview {
-    PersonalHabitsView()
+    NavigationStack {
+        PersonalHabitsView(user: User(name: "John Doe"))
+    }
 }

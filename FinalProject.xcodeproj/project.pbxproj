@@ -22,7 +22,7 @@
 		3A4464C12D002DBA00394465 /* AIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4464C02D002DBA00394465 /* AIResponse.swift */; };
 		3A4464C32D002F4E00394465 /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4464C22D002F4E00394465 /* AsyncButton.swift */; };
 		3A4464C52D0032DA00394465 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4464C42D0032DA00394465 /* NetworkManager.swift */; };
-		3A4464E42D00E82500394465 /* BlinkingModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4464E32D00E82500394465 /* BlinkingModifier.swift */; };
+		3A4464E62D01368D00394465 /* CircularAccuracy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4464E52D01368D00394465 /* CircularAccuracy.swift */; };
 		3A8054EF2CFA908700E88821 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8054EE2CFA908700E88821 /* CountdownView.swift */; };
 		3A8055112CFADAD000E88821 /* CameraBackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8055102CFADAD000E88821 /* CameraBackView.swift */; };
 		3A823EFE2CF80B4600F441F3 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823EFD2CF80B4600F441F3 /* Habit.swift */; };
@@ -60,7 +60,7 @@
 		3A4464C02D002DBA00394465 /* AIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIResponse.swift; sourceTree = "<group>"; };
 		3A4464C22D002F4E00394465 /* AsyncButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
 		3A4464C42D0032DA00394465 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		3A4464E32D00E82500394465 /* BlinkingModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlinkingModifier.swift; sourceTree = "<group>"; };
+		3A4464E52D01368D00394465 /* CircularAccuracy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularAccuracy.swift; sourceTree = "<group>"; };
 		3A8054EE2CFA908700E88821 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownView.swift; sourceTree = "<group>"; };
 		3A8055102CFADAD000E88821 /* CameraBackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraBackView.swift; sourceTree = "<group>"; };
 		3A823EFD2CF80B4600F441F3 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
@@ -125,7 +125,7 @@
 				3A823F342CF92A0800F441F3 /* RefreshUserHabits.swift */,
 				3AA98CA22CF995AD00B3A411 /* CameraPermission.swift */,
 				3A4464C22D002F4E00394465 /* AsyncButton.swift */,
-				3A4464E32D00E82500394465 /* BlinkingModifier.swift */,
+				3A4464E52D01368D00394465 /* CircularAccuracy.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -310,9 +310,9 @@
 				3A823F192CF8328300F441F3 /* HabitViewModel.swift in Sources */,
 				3A4464BD2D002BFA00394465 /* RequestBuilder.swift in Sources */,
 				3A4464912CFE6F1800394465 /* UserViewModel.swift in Sources */,
-				3A4464E42D00E82500394465 /* BlinkingModifier.swift in Sources */,
 				3AA98CA32CF995AD00B3A411 /* CameraPermission.swift in Sources */,
 				3A4464A82CFF9E8C00394465 /* ProfileNavView.swift in Sources */,
+				3A4464E62D01368D00394465 /* CircularAccuracy.swift in Sources */,
 				3AA98CB62CFA635C00B3A411 /* CameraViewModel.swift in Sources */,
 				3A3CBC722CFBE184002A08C2 /* DiscoveryView.swift in Sources */,
 				3A4464C32D002F4E00394465 /* AsyncButton.swift in Sources */,

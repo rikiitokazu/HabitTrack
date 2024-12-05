@@ -14,8 +14,9 @@ struct LoginView: View {
    
     
     enum Field {
-        case email, password
+        case name, email, password
     }
+    @State private var name = ""
     @State private var email = ""
     @State private var password = ""
     @State private var showingAlert = false
@@ -25,6 +26,7 @@ struct LoginView: View {
     @FocusState private var focusField: Field?
    
     @State private var userId: String?
+    @State private var currentUser: User?
     
     var body: some View {
         VStack {
@@ -35,6 +37,18 @@ struct LoginView: View {
                 .frame(width:80, height: 80)
             Spacer()
             Group {
+                
+                
+                TextField("Name", text:$name)
+                    .keyboardType(.emailAddress)
+                    .autocorrectionDisabled()
+                    .textInputAutocapitalization(.never)
+                    .submitLabel(.next)
+                    .focused($focusField, equals: .name)
+                    .onSubmit {
+                        focusField = .email
+                    }
+                
                 TextField("Email", text:$email)
                     .keyboardType(.emailAddress)
                     .autocorrectionDisabled()
@@ -131,12 +145,10 @@ struct LoginView: View {
             } else {
                 print("Registrration success")
                 Task {
-                    guard let id = await UserViewModel.saveUser(user: User()) else {
+                    guard let id = await UserViewModel.saveUser(user: User(email: email, name: name)) else {
                         print("error: failed to save user")
                         return
                     }
-                    print("\(id)")
-                    
                 }
                 presentMain = true
             }

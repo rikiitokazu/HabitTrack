@@ -108,7 +108,6 @@ extension DiscoveryView {
                     .fill(Color(.black500))
                     .frame(width: 330, height: 430)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .blinking(duration: 0.5)
                     .overlay {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
@@ -141,7 +140,6 @@ extension DiscoveryView {
                     .fill(Color.black500)
                     .frame(width:130, height: 150)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .blinking(duration: 0.5)
                     .overlay {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
