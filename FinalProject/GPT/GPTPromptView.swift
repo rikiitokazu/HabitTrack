@@ -28,6 +28,7 @@ struct GPTPromptView: View {
     
     let aiService = AIService()
     
+    @FocusState private var focused: Bool
     var body: some View {
         VStack (alignment: .leading, spacing: 0){
             Text("Use AI to help you...")
@@ -45,10 +46,12 @@ struct GPTPromptView: View {
                             .stroke(.gray.opacity(0.8), lineWidth:1)
                     }
                     .autocorrectionDisabled()
+                    .focused($focused)
                 Spacer()
                 AsyncButton {
                     isLoading = true
                     getKey()
+                    focused = false
                     responseText = await aiService.getAIResponse(prompt: inputText, key: key)
                     isLoading = false
                 } label: {

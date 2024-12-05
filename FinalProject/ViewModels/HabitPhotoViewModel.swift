@@ -67,4 +67,46 @@ class HabitPhotoViewModel {
             print("error saving photo to storage \(error.localizedDescription)")
         }
     }
+    
+    
+    static func saveProfilePic(user: User, data: Data) async  {
+        
+        guard let id = user.id else {
+            print("should never have been called without a valid user.id")
+            return
+        }
+        
+
+        let storage = Storage.storage().reference()
+        let metadata = StorageMetadata()
+        let _ = UUID().uuidString
+        metadata.contentType = "image/jpeg"
+        
+        do {
+            let storageRef = storage.child("\(id)/\(UUID().uuidString)")
+            let _ = try await storageRef.putDataAsync(data, metadata: metadata)
+            
+            guard let url = try? await storageRef.downloadURL() else {
+                print("could not get downloadurl for data")
+                return
+            }
+            user.profilePic = url.absoluteString
+            
+            
+            let db = Firestore.firestore()
+            do {
+                if let id = user.id {
+                    try db.collection("users").document(id).setData(from:user)
+                } else {
+                    print("--- failed to unwrap photo.id")
+                    return
+                }
+                
+            } catch {
+                print("ERROR could not upload photo in url")
+            }
+        } catch {
+            print("error saving photo to storage \(error.localizedDescription)")
+        }
+    }
 }

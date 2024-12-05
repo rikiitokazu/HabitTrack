@@ -6,13 +6,16 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct ProfileView: View {
     @State var user: User
     @Environment(\.dismiss) private var dismiss
-    
     @State private var circularDoneAnimating = false
     
+    @State private var selectedPhoto: PhotosPickerItem?
+    @State private var selectedImage = Image(systemName: "photo")
+    @State private var data = Data()
     var body: some View {
          VStack {
             HStack {
@@ -29,13 +32,31 @@ struct ProfileView: View {
                 }
                 Spacer()
                 VStack {
-                    Image(systemName: "person.crop.circle.fill")
-                        .resizable()
-                        .frame(width: 100, height: 100)
                     
-                    Button("Edit") {
-                        
+                    profilePicture
+                    
+                    PhotosPicker(selection: $selectedPhoto, matching: .images, preferredItemEncoding: .automatic) {
+                        Label("Edit", systemImage: "photo")
                     }
+                    .onChange(of:selectedPhoto) {
+                        Task {
+                            do {
+                               if let image = try await selectedPhoto?.loadTransferable(type: Image.self)
+                                {
+                                   selectedImage = image
+                               }
+                                guard let transferredData = try await selectedPhoto?.loadTransferable(type: Data.self) else {
+                                    print("error could not convert data from selected Photo")
+                                    return
+                                }
+                                data = transferredData
+                                await HabitPhotoViewModel.saveProfilePic(user: user, data: data)
+                            } catch {
+                                print("Error: \(error.localizedDescription)")
+                            }
+                        }
+                    }
+
                 }
             }
             .padding()
@@ -125,6 +146,8 @@ struct ProfileView: View {
                 }
             }
         }
+
+
     }
     
     func getAccuracyMessage(_ score: CGFloat) -> String {
@@ -151,7 +174,26 @@ struct ProfileView: View {
 
 
 extension ProfileView {
-    
+    var profilePicture: some View {
+        VStack (spacing: 0) {
+            if user.profilePic == nil {
+                Image(systemName: "person.crop.circle.fill")
+                    .resizable()
+                    .frame(width: 100, height: 100)
+            } else {
+                let url = URL(string: user.profilePic!)
+                AsyncImage(url: url) { image in
+                    image
+                        .resizable()
+                        .clipShape(Circle())
+                        .frame(width: 100, height: 100)
+                } placeholder: {
+                    ProgressView()
+                }
+            }
+        }
+    }
+        
 }
 
 #Preview {

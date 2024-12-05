@@ -37,10 +37,24 @@ struct ProfileNavView: View {
                         .frame(width: 250)
                     
                     VStack {
-                        Image(systemName: "person.crop.circle.fill")
-                            .resizable()
-                            .frame(width: 70, height: 70)
-                            .padding(.bottom, 30)
+                        if user.profilePic == nil {
+                            Image(systemName: "person.crop.circle.fill")
+                                .resizable()
+                                .frame(width: 70, height: 70)
+                                .padding(.bottom, 30)
+                            
+                        } else {
+                            let url = URL(string: user.profilePic!)
+                            AsyncImage(url: url) { image in
+                                image
+                                    .resizable()
+                                    .clipShape(Circle())
+                                    .frame(width: 70, height: 70)
+                            } placeholder: {
+                                ProgressView()
+                            }
+                        }
+
                         Text("\(user.name)")
                             .font(.title3)
                             .bold()
