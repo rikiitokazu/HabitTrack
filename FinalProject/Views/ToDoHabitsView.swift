@@ -16,7 +16,7 @@ struct ToDoHabitsView: View {
                     predicates: [.isEqualTo("userId", Auth.auth().currentUser?.uid ?? "")]) var habits: [Habit]
     //    @State private var sheetIsPresented = false
     @Environment(\.dismiss) private var dismiss
-    
+    @State var user: User?
     @State private var showCameraProcessView = false
     @State private var showCreateHabitView = false
     
@@ -33,6 +33,7 @@ struct ToDoHabitsView: View {
                         .foregroundStyle(.white)
                         .font(.title3)
                         .bold()
+                        .padding(.top, 15)
                     HabitsView
                     
                     VStack (alignment: .leading, spacing: 0 ){
@@ -142,7 +143,7 @@ extension ToDoHabitsView {
         List(getIncompleteHabits()) { habit in
             VStack {
                 NavigationLink {
-                    CameraProcessView(habit: habit)
+                    CameraProcessView(habit: habit, user: user)
                 } label : {
                     VStack (alignment: .leading){
                         HStack (alignment: .center){
@@ -274,6 +275,6 @@ extension ToDoHabitsView {
 }
 #Preview {
     NavigationStack {
-        ToDoHabitsView()
+        ToDoHabitsView(user: User())
     }
 }

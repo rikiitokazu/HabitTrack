@@ -42,7 +42,7 @@ struct MainView: View {
                     
                     if showToDo {
                         NavigationStack {
-                            ToDoHabitsView()
+                            ToDoHabitsView(user: users.isEmpty ? User() : users[0])
                         }
                     } else {
                         DiscoveryView()

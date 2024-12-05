@@ -10,6 +10,7 @@ import AVFoundation
 
 struct CameraProcessView: View {
     @State var habit: Habit?
+    @State var user: User?
     
     @State private var frontPhoto: Data? = nil
     @State private var backPhoto: Data? = nil
@@ -81,7 +82,7 @@ struct CameraProcessView: View {
                 
                 Button {
                    // upload photo
-                    let newHabitPhoto = HabitPhoto(habitId: "\(habit?.id ?? "")", caption: photoDescription)
+                    let newHabitPhoto = HabitPhoto(habitId: "\(habit?.id ?? "")", caption: photoDescription, user: user?.name ?? "--")
                     Task {
                         isUploading = true
                         await HabitPhotoViewModel.saveImage(habit: habit!, habitPhoto: newHabitPhoto, frontData: frontPhoto!, backData: backPhoto!)
@@ -155,6 +156,6 @@ extension View {
 
 #Preview {
     NavigationStack {
-        CameraProcessView(habit: Habit(habitName: "Reading more", frequency: .three))
+        CameraProcessView(habit: Habit(habitName: "Reading more", frequency: .three), user: User(name: "My Name"))
     }
 }

@@ -37,8 +37,6 @@ struct LoginView: View {
                 .frame(width:80, height: 80)
             Spacer()
             Group {
-                
-                
                 TextField("Name", text:$name)
                     .keyboardType(.emailAddress)
                     .autocorrectionDisabled()
@@ -87,7 +85,6 @@ struct LoginView: View {
                 Button("Log In") {
                     login()
                     // TODO: check last login. if current date is not equal to date of last login, reset counters and
-                    // calculate all the missed habits
                 }
                 .padding(.leading)
                 
@@ -145,7 +142,7 @@ struct LoginView: View {
             } else {
                 print("Registrration success")
                 Task {
-                    guard let id = await UserViewModel.saveUser(user: User(email: email, name: name)) else {
+                    guard let _ = await UserViewModel.saveUser(user: User(email: email, name: name)) else {
                         print("error: failed to save user")
                         return
                     }

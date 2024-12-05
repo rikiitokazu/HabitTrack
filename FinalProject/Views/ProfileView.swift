@@ -31,7 +31,6 @@ struct ProfileView: View {
                 VStack {
                     Image(systemName: "person.crop.circle.fill")
                         .resizable()
-                    //                .symbolRenderingMode()
                         .frame(width: 100, height: 100)
                     
                     Button("Edit") {

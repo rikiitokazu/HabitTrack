@@ -31,7 +31,7 @@ class HabitPhotoViewModel {
         metadata.contentType = "image/jpeg"
         
         do {
-            let storagerefFront = storage.child("\("dummy")/\(UUID().uuidString)")
+            let storagerefFront = storage.child("\(habit.userId)/\(UUID().uuidString)")
             let _ = try await storagerefFront.putDataAsync(frontData, metadata: metadata)
             
             guard let urlFront = try? await storagerefFront.downloadURL() else {

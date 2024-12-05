@@ -12,10 +12,14 @@ import FirebaseAuth
 
 
 struct CreateHabitView: View {
+    enum CreateField {
+        case habitName, frequency, notes
+    }
     @State var habit: Habit
     @State private var dueDate = Calendar.current.date(byAdding: .day, value: 1, to: Date.now)!
     @State private var frequency: FrequencyAmount = .one
     
+    @FocusState private var focusField: CreateField?
     @Environment(\.dismiss) private var dismiss
     var body: some View {
         VStack {
@@ -30,6 +34,11 @@ struct CreateHabitView: View {
                     TextField("Enter a habit", text: $habit.habitName)
                         .textFieldStyle(.roundedBorder)
                         .listRowSeparator(.hidden)
+                        .submitLabel(.next)
+                        .focused($focusField, equals: .habitName)
+                        .onSubmit {
+                            focusField = .frequency
+                        }
                 }
                 .padding()
                 HStack {
@@ -42,6 +51,10 @@ struct CreateHabitView: View {
                         ForEach(FrequencyAmount.allCases, id: \.self) { num in
                             Text("\(num.rawValue)")
                                 .foregroundStyle(.white)
+                        }
+                        .focused($focusField, equals: .frequency)
+                        .onSubmit {
+                            focusField = .notes
                         }
                     }
                 }
@@ -57,6 +70,11 @@ struct CreateHabitView: View {
                     TextField("Add a description/notes...", text: $habit.description)
                         .textFieldStyle(.roundedBorder)
                         .listRowSeparator(.hidden)
+                        .submitLabel(.done)
+                        .focused($focusField, equals: .notes)
+                        .onSubmit {
+                            focusField = nil
+                        }
                 }
                 .padding()
                 
@@ -79,7 +97,7 @@ struct CreateHabitView: View {
             GPTPromptView()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(.black800))
+        .background(.black800)
         .ignoresSafeArea()
         .navigationBarBackButtonHidden(true)
         .toolbar {
