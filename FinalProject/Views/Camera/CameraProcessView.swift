@@ -125,6 +125,9 @@ struct CameraProcessView: View {
             }
         }
         .background(.black800)
+        .onAppear {
+            
+        }
 
         
 
@@ -134,7 +137,7 @@ struct CameraProcessView: View {
 extension View {
     func fullScreenFrontCamera(isPresented: Binding<Bool>, cameraDisplay: Binding<AVCaptureDevice.Position>, frontPhoto: Binding<Data?>, backPhoto: Binding<Data?>) -> some View {
         self.fullScreenCover(isPresented: isPresented, content: {
-            CameraFrontView(frontPhoto: frontPhoto, backPhoto: backPhoto, showCamera: isPresented, cameraDisplay: cameraDisplay)
+            CameraView(frontPhoto: frontPhoto, backPhoto: backPhoto, showCamera: isPresented, cameraDisplay: cameraDisplay)
 
         })
     }
