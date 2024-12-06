@@ -1,4 +1,6 @@
 # HabitTrack.
+![Group 2](https://github.com/user-attachments/assets/040112ac-6dcc-4963-a48f-ae9e8098e2a3)
+
 ### iOS to track, record, and share your habits 📸
 - Riki Itokazu 💻
 - Boston College's BZAN2165: Programming using Swift w/ Prof. Gallaugher 👨‍🏫
@@ -14,5 +16,4 @@
 
 
 
-
-<img width="265" alt="Screenshot 2024-12-06 at 1 31 07 AM" src="https://github.com/user-attachments/assets/b9b6318e-07a3-4b20-8f6c-702477730d9b">
+![Group 1](https://github.com/user-attachments/assets/a5fc971d-4c1c-40fe-869b-6f093db33ebc)
