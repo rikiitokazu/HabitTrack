@@ -24,6 +24,7 @@
 		3A4464C52D0032DA00394465 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4464C42D0032DA00394465 /* NetworkManager.swift */; };
 		3A4464E62D01368D00394465 /* CircularAccuracy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4464E52D01368D00394465 /* CircularAccuracy.swift */; };
 		3A4465242D0279E900394465 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4465232D0279E600394465 /* SignUpView.swift */; };
+		3A4465272D027F3900394465 /* IndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A4465262D027F3900394465 /* IndexView.swift */; };
 		3A8054EF2CFA908700E88821 /* CountdownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8054EE2CFA908700E88821 /* CountdownView.swift */; };
 		3A823EFE2CF80B4600F441F3 /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823EFD2CF80B4600F441F3 /* Habit.swift */; };
 		3A823F022CF80E5E00F441F3 /* CreateHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A823F012CF80E5E00F441F3 /* CreateHabitView.swift */; };
@@ -62,6 +63,7 @@
 		3A4464E52D01368D00394465 /* CircularAccuracy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularAccuracy.swift; sourceTree = "<group>"; };
 		3A4465232D0279E600394465 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		3A4465252D027C1C00394465 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3A4465262D027F3900394465 /* IndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexView.swift; sourceTree = "<group>"; };
 		3A8054EE2CFA908700E88821 /* CountdownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountdownView.swift; sourceTree = "<group>"; };
 		3A823EFD2CF80B4600F441F3 /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		3A823F012CF80E5E00F441F3 /* CreateHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitView.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				3A823F162CF8312500F441F3 /* PersonalHabitsView.swift */,
 				3A823F1C2CF8F23600F441F3 /* ToDoHabitsView.swift */,
 				3A937FD12CF656C60025E539 /* LoginView.swift */,
+				3A4465262D027F3900394465 /* IndexView.swift */,
 				3A4465232D0279E600394465 /* SignUpView.swift */,
 			);
 			path = Views;
@@ -301,6 +304,7 @@
 				3A937FD72CF656C60025E539 /* FinalProjectApp.swift in Sources */,
 				3A8054EF2CFA908700E88821 /* CountdownView.swift in Sources */,
 				3A01A9DB2CFAEC1D005D86E5 /* CameraView.swift in Sources */,
+				3A4465272D027F3900394465 /* IndexView.swift in Sources */,
 				3A823F352CF92A0800F441F3 /* RefreshUserHabits.swift in Sources */,
 				3A823F1D2CF8F23600F441F3 /* ToDoHabitsView.swift in Sources */,
 				3A4464BF2D002CF200394465 /* AIService.swift in Sources */,

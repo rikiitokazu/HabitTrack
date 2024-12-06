@@ -13,9 +13,10 @@ import FirebaseFirestore
 struct LoginView: View {
    
     
-    enum Field {
-        case name, email, password
+    enum LoginField {
+        case email, password
     }
+    
     @State private var name = ""
     @State private var email = ""
     @State private var password = ""
@@ -23,30 +24,22 @@ struct LoginView: View {
     @State private var alertMessage = ""
     @State private var buttonDisabled = true
     @State private var presentMain = false
-    @FocusState private var focusField: Field?
+    @FocusState private var focusField: LoginField?
    
     @State private var userId: String?
     @State private var currentUser: User?
-    
+    @Environment(\.dismiss) private var dismiss
     var body: some View {
         VStack {
             // Find suitable image
-            Image(systemName: "pencil.tip")
+            Image("logowhite")
                 .resizable()
                 .scaledToFit()
-                .frame(width:80, height: 80)
             Spacer()
-            Group {
-                TextField("Name", text:$name)
-                    .keyboardType(.emailAddress)
-                    .autocorrectionDisabled()
-                    .textInputAutocapitalization(.never)
-                    .submitLabel(.next)
-                    .focused($focusField, equals: .name)
-                    .onSubmit {
-                        focusField = .email
-                    }
-                
+            VStack (alignment: .leading) {
+                Text("Email")
+                    .foregroundStyle(.white)
+                    .bold()
                 TextField("Email", text:$email)
                     .keyboardType(.emailAddress)
                     .autocorrectionDisabled()
@@ -59,7 +52,15 @@ struct LoginView: View {
                     .onChange(of:email) {
                         enableButtons()
                     }
+                    .textFieldStyle(.roundedBorder)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(.gray.opacity(0.8), lineWidth:2)
+                    }
                 
+                Text("Password")
+                    .foregroundStyle(.white)
+                    .bold()
                 SecureField("Password", text: $password)
                     .submitLabel(.done)
                     .focused($focusField, equals: .password)
@@ -69,18 +70,15 @@ struct LoginView: View {
                     .onChange(of:password) {
                         enableButtons()
                     }
-                
+                    .textFieldStyle(.roundedBorder)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(.gray.opacity(0.8), lineWidth:2)
+                    }
             }
-            .textFieldStyle(.roundedBorder)
-            .overlay {
-                RoundedRectangle(cornerRadius: 5)
-                    .stroke(.gray.opacity(0.8), lineWidth:2)
-            }
+
             
             HStack {
-                Button("Sign Up") {
-                    register()
-                }
                 
                 Button("Log In") {
                     login()
@@ -91,7 +89,7 @@ struct LoginView: View {
                 
             }
             .buttonStyle(.borderedProminent)
-            .tint(.cyan)
+            .tint(.blue500)
             .font(.title2)
             .padding(.top)
             .padding(.bottom, 50)
@@ -99,7 +97,9 @@ struct LoginView: View {
             
         }
         .padding()
-        .background(.black600)
+        .background(
+            LinearGradient(colors: [Color(.black800), Color(.black500)], startPoint: .topLeading, endPoint: .bottomTrailing)
+        )
         .alert(alertMessage, isPresented: $showingAlert) {
             Button ("OK", role:.cancel) {}
         }
@@ -125,6 +125,13 @@ struct LoginView: View {
         .onAppear {
             userId = nil
         }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button("Back") {
+                   dismiss()
+                }
+            }
+        }
     }
     
     func enableButtons() {
@@ -133,25 +140,7 @@ struct LoginView: View {
         buttonDisabled = !(emailIsGood && passwordIsGood)
         
     }
-    func register() {
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
-            if let error = error {
-                print("SIGNUP ERROR: \(error.localizedDescription)")
-                alertMessage = "SIGNIN ERROR: \(error.localizedDescription)"
-                showingAlert = true
-            } else {
-                print("Registrration success")
-                Task {
-                    guard let _ = await UserViewModel.saveUser(user: User(email: email, name: name)) else {
-                        print("error: failed to save user")
-                        return
-                    }
-                }
-                presentMain = true
-            }
-        }
-    }
-    
+
     func login() {
         Auth.auth().signIn(withEmail: email, password:password) { result, error in
             if let error = error {
@@ -168,5 +157,8 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView()
+    NavigationStack {
+        LoginView()
+        
+    }
 }

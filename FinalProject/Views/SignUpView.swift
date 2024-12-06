@@ -32,12 +32,16 @@ struct SignUpView: View {
     var body: some View {
         VStack {
             // Find suitable image
-            Image(systemName: "pencil.tip")
+            Image("justlogo")
                 .resizable()
                 .scaledToFit()
-                .frame(width:80, height: 80)
+
+            
             Spacer()
-            Group {
+            VStack (alignment: .leading) {
+                Text("Name:")
+                    .foregroundStyle(.white)
+                    .bold()
                 TextField("Name", text:$name)
                     .keyboardType(.emailAddress)
                     .autocorrectionDisabled()
@@ -47,7 +51,15 @@ struct SignUpView: View {
                     .onSubmit {
                         focusField = .email
                     }
+                    .textFieldStyle(.roundedBorder)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(.gray.opacity(0.8), lineWidth:2)
+                    }
                 
+                Text("Email:")
+                    .foregroundStyle(.white)
+                    .bold()
                 TextField("Email", text:$email)
                     .keyboardType(.emailAddress)
                     .autocorrectionDisabled()
@@ -60,7 +72,15 @@ struct SignUpView: View {
                     .onChange(of:email) {
                         enableButtons()
                     }
+                    .textFieldStyle(.roundedBorder)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(.gray.opacity(0.8), lineWidth:2)
+                    }
                 
+                Text("Password (at least 6 characters):")
+                    .foregroundStyle(.white)
+                    .bold()
                 SecureField("Password", text: $password)
                     .submitLabel(.done)
                     .focused($focusField, equals: .password)
@@ -70,13 +90,14 @@ struct SignUpView: View {
                     .onChange(of:password) {
                         enableButtons()
                     }
+                    .textFieldStyle(.roundedBorder)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(.gray.opacity(0.8), lineWidth:2)
+                    }
                 
             }
-            .textFieldStyle(.roundedBorder)
-            .overlay {
-                RoundedRectangle(cornerRadius: 5)
-                    .stroke(.gray.opacity(0.8), lineWidth:2)
-            }
+
             
             HStack {
                 Button("Sign Up") {
@@ -87,15 +108,17 @@ struct SignUpView: View {
                 
             }
             .buttonStyle(.borderedProminent)
-            .tint(.cyan)
+            .tint(.black700)
             .font(.title2)
             .padding(.top)
             .padding(.bottom, 50)
-            .disabled(buttonDisabled)
+            .disabled(buttonDisabled || name.isEmpty)
             
         }
         .padding()
-        .background(.black600)
+        .background(
+            LinearGradient(colors: [Color(.blue600), Color(.blue500)], startPoint: .topLeading, endPoint: .bottomTrailing)
+        )
         .alert(alertMessage, isPresented: $showingAlert) {
             Button ("OK", role:.cancel) {}
         }
