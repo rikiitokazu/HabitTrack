@@ -1,5 +1,8 @@
 <h1 align="center">HabitTrack</h1>
+
+<p align="center">
 ![Group 2](https://github.com/user-attachments/assets/040112ac-6dcc-4963-a48f-ae9e8098e2a3)
+</p>
 
 ### iOS to track, record, and share your habits 📸
 - Riki Itokazu 💻
