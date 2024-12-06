@@ -48,16 +48,8 @@ struct DiscoveryView: View {
                         .foregroundStyle(.white)
                 }
                 .padding()
-                .task {
-                    // await creatures.loadNextIfNeeed(creature: creature)
-                }
                 .listRowBackground(Color(.black700))
-                .overlay {
-                    Rectangle()
-                        .frame(height: 1)
-                        .foregroundStyle(Color(.black500))
-                        .frame(maxHeight: .infinity, alignment: .bottom)
-                }
+  
             }
             
             

@@ -119,10 +119,14 @@ extension MainView {
                         image
                             .resizable()
                             .clipShape(Circle())
-                            .frame(width: 70, height: 70)
+                            .frame(width: 30, height: 30)
                     } placeholder: {
                         ProgressView()
                     }
+                    .onTapGesture {
+                        isProfileDrawerOpen = !isProfileDrawerOpen
+                    }
+
                 } else {
                     Image(systemName: "person.crop.circle.fill")
                         .resizable()
