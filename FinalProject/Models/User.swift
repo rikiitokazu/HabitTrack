@@ -16,16 +16,18 @@ class User: Identifiable, Codable {
     var name: String
     var userId: String
     var lastLogin: Date
+    var totalHabits: Int
     var totalMissed: Int
     var totalAccomplished: Int
     var profilePic: String?
     
-    init(id: String? = nil, email: String = "", name: String = "", userId: String = (Auth.auth().currentUser?.uid ?? ""), lastLogin: Date = Date.now, totalMissed: Int = 0, totalAccomplished: Int = 0, profilePic: String? = nil) {
+    init(id: String? = nil, email: String = "", name: String = "", userId: String = (Auth.auth().currentUser?.uid ?? ""), lastLogin: Date = Date.now, totalHabits: Int = 0, totalMissed: Int = 0, totalAccomplished: Int = 0, profilePic: String? = nil) {
         self.id = id
         self.email = email
         self.name = name
         self.userId = userId
         self.lastLogin = lastLogin
+        self.totalHabits = totalHabits
         self.totalMissed = totalMissed
         self.totalAccomplished = totalAccomplished
         self.profilePic = profilePic

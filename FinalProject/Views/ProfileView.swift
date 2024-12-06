@@ -7,8 +7,13 @@
 
 import SwiftUI
 import PhotosUI
+import Firebase
+import FirebaseAuth
+import FirebaseFirestore
 
 struct ProfileView: View {
+    @FirestoreQuery(collectionPath: "habits",
+                    predicates: [.isEqualTo("userId", Auth.auth().currentUser?.uid ?? "")]) var habits: [Habit]
     @State var user: User
     @Environment(\.dismiss) private var dismiss
     @State private var circularDoneAnimating = false
@@ -67,7 +72,7 @@ struct ProfileView: View {
             VStack (alignment: .leading) {
                 VStack {
                     HStack (spacing: 0) {
-                        Text("\(18)")
+                        Text("\(habits.count)")
                             .font(.title)
                             .foregroundStyle(.blue200)
                             .foregroundStyle(.white)
@@ -94,7 +99,7 @@ struct ProfileView: View {
                     .frame(height:60)
                 
                 HStack (spacing: 0){
-                    Text("\(20)")
+                    Text("\(user.totalAccomplished)")
                         .foregroundStyle(.green)
                         .font(.title2)
                         .italic()
@@ -106,7 +111,7 @@ struct ProfileView: View {
                 }
                 
                 HStack (spacing: 0){
-                    Text("\(3)")
+                    Text("\(user.totalMissed)")
                         .foregroundStyle(.red)
                         .font(.title2)
                         .italic()

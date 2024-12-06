@@ -15,7 +15,7 @@ struct MainView: View {
     @FirestoreQuery(collectionPath: "users",
                     predicates: [.isEqualTo("userId", Auth.auth().currentUser?.uid ?? "")]) var users: [User]
 
-    @State private var dummyHabitPhotos = ["photo", "camera", "pencil", "pencil.circle"]
+    
     @State private var imageIsLoading = false
     @State private var data = Data()
     

@@ -72,12 +72,10 @@ struct ToDoHabitsView: View {
         // for the not completed, sort where completedForTheDay in ascending order
         let sortedHabits = habits.sorted { $0.progressForTheDay() < $1.progressForTheDay() }
         let incompleteHabits = sortedHabits.filter { $0.completedForTheDay < $0.frequency.rawValue }
-        print(habits)
         return incompleteHabits
     }
     
     func getCompletedHabits() -> [Habit] {
-        print(habits)
         let completedHabits = habits.filter { $0.completedForTheDay == $0.frequency.rawValue }
         
         return completedHabits
