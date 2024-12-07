@@ -10,17 +10,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 
-class Key: Identifiable, Codable {
-    @DocumentID var id: String?
-    var ai: String
-    init(id: String? = nil, ai: String = "") {
-        self.id = id
-        self.ai = ai
-    }
-}
-
 struct GPTPromptView: View {
-    @FirestoreQuery(collectionPath: "keys") var keys: [Key]
     @State private var key: String = ""
     @State private var inputText: String = ""
     @State private var responseText: String = ""
@@ -55,7 +45,6 @@ struct GPTPromptView: View {
                 Spacer()
                 AsyncButton {
                     isLoading = true
-                    getKey()
                     focused = false
                     responseText = await aiService.getAIResponse(prompt: inputText, key: key)
                     isLoading = false
@@ -99,13 +88,7 @@ struct GPTPromptView: View {
         .padding()
 
     }
-    private func getKey() {
-        if keys.isEmpty {
-            key = ""
-        } else {
-            key = keys[0].ai
-        }
-    }
+
     
     private func applySuggestions() {
         // Use regular expressions to extract parts of the string
