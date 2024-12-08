@@ -17,7 +17,7 @@
 - AVCaptureMultiCamSession (Dual Camera)
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/a5fc971d-4c1c-40fe-869b-6f093db33ebc" width = "50" height= "200"/>
+  <img src="https://github.com/user-attachments/assets/a5fc971d-4c1c-40fe-869b-6f093db33ebc" width = "250" height= "550"/>
 </p>
 
 ### Description 
