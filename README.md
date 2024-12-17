@@ -14,7 +14,7 @@
 - Firebase Authentication/Database
 - Firebase Storage
 - GPT-4o mini
-- AVCaptureMultiCamSession (Dual Camera/BeReal-like feature)
+- AVCaptureMultiCamSession (Dual Camera/BeReal-like camera)
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/a5fc971d-4c1c-40fe-869b-6f093db33ebc" width = "300" height= "575"/>
